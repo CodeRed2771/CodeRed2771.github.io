@@ -116,6 +116,14 @@ a {
     color: #326ba3;
 }
 
+.product p {
+    max-width: 350px;
+}
+
+.product p a {
+    font-size: 16px;
+}
+
 .footer {
     text-align: center;
     font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
