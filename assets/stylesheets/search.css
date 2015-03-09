@@ -1,0 +1,115 @@
+
+#tfheader{
+}
+
+#tfnewsearch{
+  /* padding: 20px 0px;*/
+  padding-bottom: 20px;
+}
+
+.tftextinput{
+  margin: 0;
+  padding: 5px 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:14px;
+  border:1px solid #0076a3; border-right:0px;
+  border-top-left-radius: 5px 5px;
+  border-bottom-left-radius: 5px 5px;
+}
+
+.tfbutton {
+  margin: 0;
+  padding: 5px 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:14px;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  border: solid 1px #0076a3; border-right:0px;
+  background: #0095cd;
+  background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+  background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+  border-top-right-radius: 5px 5px;
+  border-bottom-right-radius: 5px 5px;
+}
+
+.tfbutton:hover {
+  text-decoration: none;
+  background: #007ead;
+  background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+  background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+}
+
+/* Fixes submit button height problem in Firefox */
+.tfbutton::-moz-focus-inner {
+  border: 0;
+}
+
+.tfclear{
+  clear:both;
+}
+
+ul.results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-block;
+}
+
+ul.results > li {
+  margin: 2.0em 0;
+}
+
+ul.results > li:first-child {
+  margin-top: 0;
+}
+
+h2.results {
+  padding-bottom: 20px;
+}
+
+li.result a {
+  text-decoration: none;
+}
+li.result a:hover {
+}
+
+li.result h3 {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: left;
+}
+
+li.result p {
+  text-align: left;
+  max-width: 800px;
+}
+
+li.result div {
+  background: #FF9999;
+  padding: 15px;
+  color:#000000;
+  -webkit-transition:color 0.3s;
+  -moz-transition:color 0.3s;
+  -o-transition:color 0.3s;
+  transition:color 0.3s
+}
+
+li.result h3 {
+  font-weight: 700;
+  color:#ffffff;
+  -webkit-transition:color 0.3s;
+  -moz-transition:color 0.3s;
+  -o-transition:color 0.3s;
+  transition:color 0.3s
+}
+
+li.result h3:hover {
+  color: #ff6100;
+  -webkit-transition:color 0.3s;
+  -moz-transition:color 0.3s;
+  -o-transition:color 0.3s;
+  transition:color 0.3s
+}

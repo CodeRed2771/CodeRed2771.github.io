@@ -1,0 +1,8 @@
+---
+---
+[
+  {% for post in site.pages %}
+  {% include post.json %},
+  {% endfor %}
+  null
+]

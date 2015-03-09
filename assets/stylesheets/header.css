@@ -1,0 +1,30 @@
+.header {
+  background: #2E2E2E;
+  padding: 10px;
+}
+
+.header img {
+  margin: 5px
+}
+
+.header a {
+  color: #ffffff;
+  margin:10px;
+  margin-top: 100px;
+  -webkit-transition:color 0.3s;
+  -moz-transition:color 0.3s;
+  -o-transition:color 0.3s;
+  transition:color 0.3s
+  } .header a:hover {
+    color: #ff6100;
+    margin: 10px;
+    -webkit-transition:color 0.3s;
+    -moz-transition:color 0.3s;
+    -o-transition:color 0.3s;
+    transition:color 0.3s
+  }
+
+  .header h1 {
+    color: #ffffff;
+    font-size: 48px;
+  }
