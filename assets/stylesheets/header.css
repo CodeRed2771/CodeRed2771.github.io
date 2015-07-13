@@ -1,3 +1,14 @@
+.construction {
+    background: #FD3300;
+    padding: 10px;
+}
+
+.construction h3 {
+  padding: 0;
+  color: #FFF;
+  margin: 0;
+}
+
 .header {
   background: #1E1E1E;
   padding: 10px;
