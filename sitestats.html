@@ -1,0 +1,57 @@
+---
+layout: default
+---
+<h1>Site Stats for Nerds</h1>
+<p>We wrote this website line by line, without a builder!  Sounds hard, right?
+  Well we had a little bit of help...  This website is hosted by GitHub through
+  the GitHub Pages service.  GitHub Pages will host organization (or user) website
+  for absolutely free, and it's through their servers, so it's fast!  Pages
+  also allows you to use a platform called <a href="http://jekyllrb.com/">Jekyll</a>.
+  Jekyll is where the real magic is, and it's what made writing this website so
+  much fun.  Adding this <i>entire</i> page took me literally 5 minutes.  How, you ask?
+  The hardest part was thinking out all these words...  :) Check out the
+  code for this page so far:</p>
+
+<pre><code>---
+layout: default
+---
+&lt;h1&gt;Site Stats for Nerds&lt;/h1&gt;<br>
+&lt;p&gt;We wrote this website line by line, without a builder!  Sounds hard, right?
+  Well we had a little bit of help...  This website is hosted by GitHub through
+  the GitHub Pages service.  GitHub Pages will host a organization (or user) website
+  for absolutely free, and it's through their servers, so it's fast!  Pages
+  also allows you to use a platform called &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;.
+  Jekyll is where the real magic is, and it's what made writing this website so
+  much fun.  Writing this &lt;i&gt;entire&lt;/i&gt; page took me literally 5 minutes.  Everything.
+  How, you ask?  The hardest part was thinking out all these words...  Check out the
+  code for this page:&lt;/p&gt;</code></pre>
+
+<p>The little bit at the top is called <i>front-matter</i>, and it's used to add tags,
+  specify which layout is to be used, or change certain features of the page.
+  Jekyll is based on Ruby, and allows you to use Ruby to do cool stuff (I'll explain
+in a minute) that is run at "compile" time.  For example, one is the cool things
+this code can do is a site search.  It will also require some JavaScript to actually
+do the searching since this is on GitHub pages, but the whole thing is powered
+by this bit of Jekyll-executed script:</p>
+
+<code><pre>---
+---
+[
+  {&#37; for post in site.pages &#37;}
+  {&#37; include post.json &#37;},
+  {&#37; endfor &#37;}
+  null
+]
+</pre></code>
+
+<p>Jekyll is just so cool, and the main reason I like it is that it gives you robust
+features while sticking true to plain HTML/CSS.  So basically I just wrote this page
+so that maybe someone who wanted to make a website now knows about Jekyll!  Go check it out!
+If you want to see all the code for this website, go check it out on the
+<a href="http://github.com/CodeRed2771/codered2771.github.io/">GitHub repo</a>.
+<a href="http://pages.github.com">More info about GitHub Pages</a>.  They also have
+a guide about getting started with Jekyll.</p>
+
+<p>Also, parts of the guide are written by people like you!  We are trying the make
+  the guide as extensive as possible; if you are interested in helping you can
+  <a href="/helpuswrite">learn more here</a>.</p>

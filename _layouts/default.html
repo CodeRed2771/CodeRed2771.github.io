@@ -5,7 +5,7 @@
     {% if page.title %}
     {{ page.title }}
     {% else %}
-    Controls Resources | Code Red Robotics
+    Controls Resources - Code Red Robotics
     {% endif %}
   </title>
 
@@ -25,15 +25,49 @@
   <body>
     {% include header.html %}
     <div class="body">
-      <center>
-        <main>
-          {{ content }}
-        </main>
-      </center>
+      <div class="page">
+        <div class="menu">
+          <ul><a href="/"><li id="nav1">Home</li></a>
+            <li id="nav2">
+              Software
+              <ul>
+                <a href="/dashboard"><li>Dashboard</li></a>
+                <a href="/software/libraries"><li>Advanced Libraries</li></a>
+                <a href="/software/pitmanager"><li>Pit Manager</li></a>
+                <a href="/software/virtualrobot"><li>Virtual Robot</li></a>
+              </ul>
+            </li>
+            <a href="/guide"><li id="nav3">Controls Guide</li></a>
+            <a href="/module"><li id="nav4">Controls Module</li></a>
+            <a href="/robots"><li id="nav5">Robots</li></a>
+            <a href="/contact"><li id="nav6">Contact Us</li></a>
+          </ul>
+          <!-- <ul>
+            <a href="/"><li class="nav1">Home</li></a>
+              <li class="nav2">Software
+                <ul>
+                  <a href="http://www.google.com"><li>Item 1</li></a>
+                  <li>Item 2</li>
+                </ul>
+              </li>
+            <a href="#"><li class="nav3">Controls Guide</li></a>
+            <a href="#"><li class="nav4">Tools</li></a>
+            <a href="#"><li class="nav5">Robots</li></a>
+            <a href="#"><li class="nav6">Contact Us</li></a>
+          </ul> -->
+        </div>
+        <div class="content">
+          <center>
+            <main>
+              {{ content }}
+              <!-- {% include footer.html %} -->
+            </main>
+          </center>
+        </div>
+      </div>
     </div>
-      {% include footer.html %}
-
-      <script defer src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-      <script defer src="/assets/js/codered.js"></script>
-    </body>
+    {% include pagefooter.html %}
+    <script defer src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script defer src="/assets/js/codered.js"></script>
+  </body>
 </html>

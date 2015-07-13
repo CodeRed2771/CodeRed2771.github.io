@@ -27,3 +27,16 @@
 .footer a {
   margin: 0px 30px;
 }
+
+.pagefooter {
+  margin: 20px auto;
+  height: 103px;
+  padding: 20px;
+  background: #FFFFFF;
+  max-width: 920px;
+  text-align: center;
+  font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
