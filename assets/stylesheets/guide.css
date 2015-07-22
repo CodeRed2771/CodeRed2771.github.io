@@ -118,25 +118,29 @@ pre {
     margin: 10px 0px;
 }
 
-@keyframes fadein {
+h1 {
+  margin-bottom: 20px;
+}
+
+/*@keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}
+}*/
 
 /* Firefox */
-@-moz-keyframes fadein {
+/*@-moz-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}
+}*/
 
 /* Safari and Chrome */
-@-webkit-keyframes fadein {
+/*@-webkit-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}
+}*/
 
 /* Internet Explorer */
-@-ms-keyframes fadein {
+/*@-ms-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}
+}*/

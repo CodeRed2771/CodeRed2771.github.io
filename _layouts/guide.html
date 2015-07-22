@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+      <title>
+        {% if page.title %}
+        {{ page.title }} - Controls Resources
+        {% else %}
+        Controls Resources - Code Red Robotics
+        {% endif %}
+      </title>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+        <meta name="author" content="Code Red Robotics">
+        <meta name="description" content="Controls resources for FIRST FRC robotics teams.  ">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/assets/stylesheets/guide.css" type="text/css">
+        <link rel="stylesheet" href="/assets/stylesheets/search.css" type="text/css">
+        <link rel="icon" type="image/x-icon" href="favicon.png" />
+
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+              {% if page.title %}
+              <h1>{{ page.title }}</h1>
+              {% endif %}
+              {{ content }}
+              {% include footer.html %}
+            </div>
+            <div id="navbar" class ="navbar">
+              <div class="navbar_header">
+                <a href="http://www.coderedrobotics.com/"><--- Back to main website</a>
+                <center>
+                    <a href="/"><img src="/assets/img/mainlogo.png" alt="Code Red Logo"></a>
+                    <h3>The Complete Guide to the</h3>
+                    <h1>FRC Controls System</h1>
+                    <div id="tfheader">
+                        <form id="tfnewsearch" method="post" action="http://www.google.com/">
+                            <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+                        </form>
+                        <div class="tfclear"></div>
+                    </div>
+                    <p></p>
+                </center>
+            </div>
+            <nav>
+            </nav>
+          </div>
+        </div>
+    </body>
+</html>
