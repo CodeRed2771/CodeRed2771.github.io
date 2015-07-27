@@ -19,9 +19,8 @@
 
         <link rel="stylesheet" href="/assets/stylesheets/guide.css" type="text/css">
         <link rel="stylesheet" href="/assets/stylesheets/search.css" type="text/css">
-        <link rel="icon" type="image/x-icon" href="favicon.png" />
-
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <link rel="stylesheet" href="/assets/stylesheets/syntax.css" type="text/css">
+        <link rel="icon" type="image/x-icon" href="/favicon.png" />
     </head>
     <body>
         <div class="container">
@@ -30,25 +29,48 @@
               <h1>{{ page.title }}</h1>
               {% endif %}
               {{ content }}
+              {% if page.previous or page.next %}
+                <div class="lessonnav">
+                  {% if page.previous %}
+                    <a href="{{ page.previous }}" style="float: left"><--- Previous Lesson</a>
+                  {% endif %}
+                  {% if page.next %}
+                    <a href="{{ page.next }}" style="float: right">Next Lesson---></a>
+                  {% endif %}
+                </div>
+              {% endif %}
               {% include footer.html %}
             </div>
             <div id="navbar" class ="navbar">
               <div class="navbar_header">
-                <a href="http://www.coderedrobotics.com/"><--- Back to main website</a>
+                <a href="http://controls.coderedrobotics.com/"><--- Back to controls site</a>
                 <center>
-                    <a href="/"><img src="/assets/img/mainlogo.png" alt="Code Red Logo"></a>
+                    <a href="/guide"><img src="/assets/img/mainlogo.png" alt="Code Red Logo"></a>
                     <h3>The Complete Guide to the</h3>
                     <h1>FRC Controls System</h1>
                     <div id="tfheader">
-                        <form id="tfnewsearch" method="post" action="http://www.google.com/">
-                            <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
-                        </form>
-                        <div class="tfclear"></div>
+                      <form id="tfnewsearch" method="get" action="/guide/search.html">
+                        <input type="text" class="tftextinput" name="tags" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+                      </form>
+                      <div class="tfclear"></div>
                     </div>
+                    <p id="jswarning">*Search requires JavaScript</p>
                     <p></p>
                 </center>
             </div>
             <nav>
+              <h3>Jump to Category:</h3>
+              <ul>
+                <li><a href="/guide/programming.html">Programming</a></li>
+                <li><a href="/guide/hardwarecomponents.html">Hardware Components</a></li>
+                <li><a href="/guide/wiring.html">Wiring</a></li>
+                <li><a href="/guide/atthecompetition.html">At the Competition</a></li>
+                <li><a href="/guide/misc.html">Misc.</a></li>
+              </ul>
+              <br>
+              <h3><a href="/guide">Full Table of Contents</a></h3>
+              <br>
+              <h3><a href="/guide/programminglessons">Programming Lessons</a></h3>
             </nav>
           </div>
         </div>

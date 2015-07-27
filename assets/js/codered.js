@@ -103,7 +103,7 @@
     tags     = post.tags;
 
     for (var j in tags) {
-      tagsList += '<a href="/search.html?tags=' + tags[j] + '">' + tags[j] + '</a>\t'
+      tagsList += '<a href="/guide/search.html?tags=' + tags[j] + '">' + tags[j] + '</a>\t'
     }
 
     $results.append(
@@ -112,7 +112,7 @@
       + '<a href="' + post.href + '"><h3>' + post.title +'</h3></a>'
       + '<p><b>' + post.summary + '</b></p>'
       + '<p>Tags: <i>' + tagsList + '</i></p>'
-      + '<p>In: <a href="/search.html?category=' + post.category +'">' +  majusculeFirst(post.category) + '</a></p>'
+      + '<p>In: <a href="/guide/search.html?category=' + post.category +'">' +  majusculeFirst(post.category) + '</a></p>'
       + '</div>'
       + '</li>'
     );
@@ -166,22 +166,28 @@ window.alxPrc = {
 })(window, window.document);
 
 $(function() {
+
+  console.log("sup");
   var parameters = ['category', 'tags'];
   var map = {}
   //var index = 0;
   for (var idx in parameters) {
     map[parameters[idx]] = alxPrc.getParam(parameters[idx]);
   }
+    console.log("sup");
   $.each(map, function(type, value) {
     if (value !== null) {
-      $.getJSON('/search.json', function(data) {
+      $.getJSON('/guide/search.json', function(data) {
         posts = alxPrc.filterPostsByPropertyValue(data, type, value);
         if (posts.length === 0) {
           alxPrc.noResultsPage(type, value);
         } else {
           alxPrc.layoutResultsPage(type, value, posts);
+          console.log("done with layout");
         }
       });
+    } else {
+      console.log("null");
     }
   });
 

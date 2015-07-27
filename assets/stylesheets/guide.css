@@ -96,6 +96,16 @@ body {
     margin: 30px;
 }
 
+#jswarning {
+    text-align: right;
+    font-size: 11px;
+    margin-top: -10px;
+}
+
+nav {
+  text-align: left;
+}
+
 a {
     color: #444444;
     -webkit-transition:color 0.3s;
@@ -110,9 +120,25 @@ a {
     transition:color 0.3s
 }
 
+.content a {
+  color: #3399FF;
+  -webkit-transition:color 0.3s;
+  -moz-transition:color 0.3s;
+  -o-transition:color 0.3s;
+  transition:color 0.3s
+} .content a:hover {
+  color: #ff6100;
+  -webkit-transition:color 0.3s;
+  -moz-transition:color 0.3s;
+  -o-transition:color 0.3s;
+  transition:color 0.3s
+}
+
 pre {
-    background: lightgray;
-    border: gray 1px;
+    background: #3D3D3D;
+    border: solid;
+    border-width: thin;
+    border-color: black;
     padding: 15px;
     color: #474747;
     margin: 10px 0px;
@@ -122,6 +148,54 @@ h1 {
   margin-bottom: 20px;
 }
 
+p, pre, h2, h3, h4, h5, h6, ol {
+  margin-bottom: 20px;
+}
+
+ol {
+  margin-left: 40px;
+}
+
+ul {
+  margin-left: 30px;
+}
+
+.output {
+  border: solid;
+  border-width: thin;
+  border-color: #606060;
+  background: #FFFFAA;
+  padding: 15px;
+  color: black;
+}
+
+.lessonnav {
+  overflow: hidden;
+  background: lightgray;
+  padding: 20px;
+}
+
+.important {
+  color: red;
+  font-weight: 700;
+}
+
+.tip {
+  border-radius: 5px;
+  border: solid;
+  border-width: thin;
+  border-color: gray;
+  background: lightgray;
+  padding: 15px;
+  float: right;
+  margin: 0;
+  max-width: 360px;
+}
+
+.tip b {
+  margin-bottom: 10px;
+  display: block;
+}
 /*@keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }

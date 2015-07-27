@@ -1,0 +1,5 @@
+syntax-highlighting:
+  enabled: true
+  css: /assets/stylesheets/syntax.css
+gems:
+  - jekyll-redirect-from
