@@ -7,3 +7,112 @@ summary: this is a search test
 previous: 2.html
 next: 4.html
 ---
+<p>In order to make our robot do anything, we are going to need to be able to
+control the motors.  We do this with something called a motor controller, and
+you need one motor controller on your robot for each motor you have.  Motor
+controllers operate in one of two ways, but we are going to focus on only one in
+this tutorial: PWM. PWM is a way for us to tell the motor controllers what we
+want them to do.</p>
+
+<p>The list of permitted motor controllers for the 2016 season is:</p>
+<ul>
+  <li>Jaguar Motor Controller</li>
+  <li>Talon Motor Controller</li>
+  <li>Talon SRX Motor Controller</li>
+  <li>Victor 884 Motor Controller</li>
+  <li>Victor 888 Motor Controller</li>
+  <li>Victor SP Motor Controller</li>
+  <li>SD540 Motor Controller</li>
+  <li>Spark Motor Controller</li>
+</ul>
+<p class="tip">
+  <b>Why use <code>Victor</code> when uncertain?</b>
+  PWM works the same for all the controllers, so it doesn't matter what object is used unless
+you are using additional features of the motor controller. </p>
+
+<p>Each type of motor controller comes with their own object to be used in code.
+(The Jaguar uses the <code>Jaguar</code> object, the Talon SRX uses the
+<code>TalonSRX</code> object, and so on.)  If you are uncertain on which object to
+use, the safest bet would be to use the <code>Victor</code> object. Enough talk,
+lets write some code.  I am going to be using a <code>Talon</code>, but you don't
+have to.  Simply replace all my <code>Talon</code> objects with the object of your
+choice.  Let's make a robot with two motor controllers: left and right. At the
+top of your main robot class, declare your motor controllers:</p>
+
+{% highlight java %}
+Talon left;
+Talon right;
+{% endhighlight %}
+
+<p>Now we need to instantiate them.  Do this in your <code>robotInit()</code> method.
+The constructor of a motor controller object takes one integer: the port on the
+roboRIO that the motor controller is plugged in to.  I am going to plug the left
+motor controller into port 0, and the right into port 1.</p>
+
+{% highlight java %}
+public void robotInit() {
+    left = new Talon(0);
+    right = new Talon(1);
+}
+{% endhighlight %}
+
+<p>Now let's make them move!  You only need to know one method: the <code>set</code>
+method.  It takes one double as a parameter: the speed that the motor should go.
+The speed can be anywhere from -1 to 1, where -1 is full speed backwards, 1 is
+full speed forwards, and 0 is stop.  To make both left and right motors move
+forward at 20% speed, we can add this code to our <code>teleopPeriodc()</code>
+method:</p>
+
+{% highlight java %}
+public void teleopPeriodic() {
+    left.set(0.2);
+    right.set(0.2);
+}
+{% endhighlight %}
+
+<p>Now when we enable the robot, we will see the left and right motors move forward
+at 20% speed.  If you have deployed this code to your robot, one of the motors
+may have gone backwards.  This is due to motors being mounted in the opposite
+orientation, and thus forward in code becomes backwards on the physical motor.
+To fix this issue, simply add a negative sign where it is needed.  (For example,
+let's say your left motor is moving backwards):</p>
+
+{% highlight java %}
+left.set(-0.2);
+{% endhighlight %}
+
+<p>should fix it up.
+
+<hr>
+<h2>Using Code Red's Robot Library</h2>
+
+<p>An alternative way to control motors is using Code Red's Robot Library.  Make
+sure that you have the library setup in your environment before continuing. When
+using the Robot Library, all motor controllers use the <code>PWMController</code>
+object.  This object does much more than simply set motor speeds, but that is
+beyond the scope of this lesson and will be covered later.   Here is the same
+code we just wrote, but using the <code>PWMController</code> object:</p>
+
+{% highlight java %}
+PWMController left;
+PWMController right;
+
+public void robotInit() {
+    left = new PWMController(0, true);
+    right = new PWMController(1, false);
+}
+
+public void teleopInit() {
+    left.set(0.2);
+    right.set(0.2);
+}
+{% endhighlight %}
+
+<p>Notice that the constructor for the <code>PWMController</code> object takes an
+additional boolean.  The boolean indicates whether the motor is mounted on the
+robot backwards or not.  If it is mounted backwards, simply pass <code>true</code>
+into the constructor of the motor controller, and you will not need to worry
+about using any negatives later on in your code. </p>
+
+<p>That's it for this lesson!  In the next lesson we are going to learn about
+getting joystick input. </p>

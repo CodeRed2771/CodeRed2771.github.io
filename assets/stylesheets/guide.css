@@ -39,7 +39,11 @@
 
 body {
     background:#cfcfcf;
-    font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 300;
 }
 
 .content {
@@ -135,20 +139,33 @@ a {
 }
 
 pre {
-    background: #3D3D3D;
-    border: solid;
+  display: inline;
+  margin: 0;
+}
+
+div .highlight {
+    /*background: #3D3D3D;*/
+    border: 1px solid #d5d5e9;
+    background-color: #eef;
+    padding: 8px 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 15px;
+    /*border: solid;
     border-width: thin;
     border-color: black;
     padding: 15px;
-    color: #474747;
-    margin: 10px 0px;
+    color: #474747;*/
+    margin-bottom: 20px;
+    max-width: 800px;
 }
 
 h1 {
   margin-bottom: 20px;
 }
 
-p, pre, h2, h3, h4, h5, h6, ol {
+p, pre, h2, h3, h4, h5, h6, ol, ul {
   margin-bottom: 20px;
 }
 
@@ -160,6 +177,10 @@ ul {
   margin-left: 30px;
 }
 
+hr {
+  margin-bottom: 10px;
+}
+
 .output {
   border: solid;
   border-width: thin;
@@ -167,6 +188,8 @@ ul {
   background: #FFFFAA;
   padding: 15px;
   color: black;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 .lessonnav {
