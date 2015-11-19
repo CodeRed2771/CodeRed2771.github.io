@@ -70,6 +70,9 @@ public void teleopPeriodic() {
 }
 {% endhighlight %}
 
+<p class="important">It is important to note that the motor will continue to run
+at that speed until <code>set</code> is called again with a different value.</p>
+
 <p>Now when we enable the robot, we will see the left and right motors move forward
 at 20% speed.  If you have deployed this code to your robot, one of the motors
 may have gone backwards.  This is due to motors being mounted in the opposite
@@ -102,7 +105,7 @@ public void robotInit() {
     right = new PWMController(1, false);
 }
 
-public void teleopInit() {
+public void teleopPeriodic() {
     left.set(0.2);
     right.set(0.2);
 }

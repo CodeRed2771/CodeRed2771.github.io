@@ -181,6 +181,25 @@ hr {
   margin-bottom: 10px;
 }
 
+table {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+
+th {
+  text-align: center;
+  background-color: #ccc;
+}
+
+td {
+    padding: 0 15px;
+}
+
 .output {
   border: solid;
   border-width: thin;
