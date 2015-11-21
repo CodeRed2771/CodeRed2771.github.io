@@ -14,11 +14,11 @@
   // Returns:
   //   string or null
   var getParam = function(param) {
-    var queryString = window.location.search.substring(1),
+    var queryString = window.location.search.substring(1);
     queries = queryString.split('&');
     for (var i in queries) {
       var pair = queries[i].split('=');
-      if (pair[0] === param) {
+      if (pair[0] == param) {
         // Decode the parameter value, replacing %20 with a space etc.
         return decodeURI(pair[1]);
       }
@@ -87,7 +87,7 @@
   // Returns:
   //   undefined
   var layoutResultsPage = function(property, value, posts) {
-    var $container = $('main');
+    var $container = $('body');
     if ($container.length === 0) return;
 
     value = replaceAll(value, "+", " ");
@@ -126,7 +126,6 @@
 // Returns:
 //   undefined
 var noResultsPage = function(property, value) {
-  console.log("no results");
   $('main').find('h2').text('No Results Found.').after(
     '<p>We couldn\'t find anything associated with "' + value + '" here.  That '
     + 'doesn\'t mean we don\'t have it.  Try refining your search.<br><br><b>'
@@ -167,27 +166,23 @@ window.alxPrc = {
 
 $(function() {
 
-  console.log("sup");
   var parameters = ['category', 'tags'];
   var map = {}
   //var index = 0;
   for (var idx in parameters) {
     map[parameters[idx]] = alxPrc.getParam(parameters[idx]);
   }
-    console.log("sup");
   $.each(map, function(type, value) {
     if (value !== null) {
-      $.getJSON('/guide/search.json', function(data) {
+      $.getJSON("/guide/search.json", function(data) {
         posts = alxPrc.filterPostsByPropertyValue(data, type, value);
         if (posts.length === 0) {
           alxPrc.noResultsPage(type, value);
         } else {
           alxPrc.layoutResultsPage(type, value, posts);
-          console.log("done with layout");
         }
       });
     } else {
-      console.log("null");
     }
   });
 

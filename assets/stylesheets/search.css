@@ -113,3 +113,8 @@ li.result h3:hover {
   -o-transition:color 0.3s;
   transition:color 0.3s
 }
+
+
+.result p {
+  margin: 0;
+}
