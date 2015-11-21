@@ -165,7 +165,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-p, pre, h2, h3, h4, h5, h6, ol, ul {
+p, pre, h2, h3, h4, h5, h6, ol, ul, img {
   margin-bottom: 20px;
 }
 
@@ -231,6 +231,7 @@ td {
   padding: 15px;
   float: right;
   margin: 0;
+  margin-left: 10px;
   max-width: 360px;
 }
 
