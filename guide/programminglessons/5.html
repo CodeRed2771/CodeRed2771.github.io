@@ -2,8 +2,142 @@
 layout: guide
 title: "Lesson 5: Keeping Track of Variables"
 category: Programming
-tags: [junk, stupid, lame, silly, pointless]
-summary: this is a search test
+tags: [organization, clean, readable, wiring, calibration]
+summary: In this lesson we learn how to keep our code clean and readable by organizing creating wiring and calibration classes.
 previous: 4.html
 next: 6.html
 ---
+<p>As we get into more complicated topics and learn new things, our robot code
+is going to become larger and larger.  Many things will be going on at once, and
+in order to keep our code clean and understandable, we need to have some
+organization.  The focus of this lesson is going to be organizing all of your
+static number values (such as motor ports, calibration data, etc.).</p>
+
+<p>Oftentimes, you will come back to a piece of code after not reading it for a
+while.  If this code was written poorly, you may not understand how it works or
+what it does.  In Lesson 3, you created a motor controller that took an integer
+value that represented the port on the roboRIO for that motor controller.  It is
+not a good idea to simply put that number directly into the constructor because
+it decreases the overall quality of your code.</p>
+
+<p>We can solve this problem by putting all of these values in one place.  That
+way, we know where they are if we ever need to change them and it also makes our
+code cleaner.  I recommend making two classes for this purpose: a
+<code>Wiring</code> class and a <code>Calibration</code> class.  In the wiring
+class, we can store PWM ports, digital input ports, analog input ports, relays,
+etc.  In the calibration class, we can store values that never change but we
+need to know nonetheless.  (An example could be how many encoder ticks it takes
+to move a lift all the way from bottom to top.)  You may be thinking that this
+sounds like ridiculous overkill, but as your code becomes larger you will lose
+track of where all these numbers are coming from if you don't keep them
+organized.</p>
+
+<p>Here are the <code>Wiring</code> and <code>Calibration</code> classes from
+Code Red's 2015 robot code:</p>
+
+<p><code>Wiring.java</code>:</p>
+
+{% highlight java %}
+public class Wiring {
+
+    /*
+     * MOTOR CONTROLLERS
+     */
+    public static final int REAR_RIGHT_MOTOR = 0;
+    public static final int FRONT_RIGHT_MOTOR = 1;
+    public static final int FRONT_LEFT_MOTOR = 2;
+    public static final int REAR_LEFT_MOTOR = 3;
+    public static final int LIFT_MOTOR = 4;
+    public static final int EXTENDER_MOTOR = 5;
+
+    /*
+     * DIO
+     */
+    public static final int REAR_RIGHT_ENCODER_A = 0;
+    public static final int REAR_RIGHT_ENCODER_B = 1;
+    public static final int FRONT_RIGHT_ENCODER_A = 2;
+    public static final int FRONT_RIGHT_ENCODER_B = 3;
+    public static final int FRONT_LEFT_ENCODER_A = 5;
+    public static final int FRONT_LEFT_ENCODER_B = 4;
+    public static final int REAR_LEFT_ENCODER_A = 7;
+    public static final int REAR_LEFT_ENCODER_B = 6;
+    public static final int LIFT_ENCODER_A = 8;
+    public static final int LIFT_ENCODER_B = 9;
+
+    /*
+     * ANALOG INPUTS
+     */
+    public static final int GYRO = 0;
+    public static final int EXTENDER_STRING_POT = 1;
+    public static final int LIFT_LIMIT_SWITCH = 2;
+
+    /*
+     * RELAYS
+     */
+    public static final int RED_AND_GREEN_LEDS = 0;
+    public static final int BLUE_LEDS = 1;
+}
+{% endhighlight %}
+
+<p><code>Calibration.java</code>:</p>
+
+{% highlight java %}
+public class Calibration {
+
+    // LIFT
+    public static final double LIFT_MAX_DISTANCE = 8100;
+    public static final double LIFT_MIN_DISTANCE = 200;
+    public static final double LIFT_P = 0.8;
+    public static final double LIFT_I = 0.0;
+    public static final double LIFT_D = 0.0;
+
+    // DRIVE
+    public static final double X_DRIVE_P = -10;//-10;
+    public static final double X_DRIVE_I = 0;
+    public static final double X_DRIVE_D = 0;
+    public static final double Y_DRIVE_P = -10;//-10;
+    public static final double Y_DRIVE_I = 0;
+    public static final double Y_DRIVE_D = 0;
+    public static final double ROT_DRIVE_P = 0;//3;
+    public static final double ROT_DRIVE_I = 0;
+    public static final double ROT_DRIVE_D = 0;
+
+    public static final double X_SCALE = 0.007854536;
+    public static final double Y_SCALE = 0.01078828;
+    public static final double ROT_SCALE = 0.022538738;
+    public static final double X_TOP_SPEED = 0.12 * 8.064516129; // 0.35?
+    public static final double Y_TOP_SPEED = 0.12;
+    public static final double ROT_TOP_SPEED = 0.2;
+
+    // EXTENDER
+    public static final double EXTENDER_P = 0.12;
+    public static final double EXTENDER_I = 0;
+    public static final double EXTENDER_D = 0;
+    public static final double EXTENDER_MOVE_SPEED = 1;
+
+    public static final double EXTENDER_POT_MAX = 3.3;
+    public static final double EXTENDER_POT_MIN = 0.3;
+}
+{% endhighlight %}
+
+<p>Hopefully now you realize why it can be useful to store all these values in
+one place.  If we ever needed to change one of them, we don't need to hunt it
+down: we know exactly where it is.  Remember if these variables have the
+<code>public static</code> modifiers on them, that means we can access them from
+anywhere without having to create any instances.  For example, here is how the
+Lesson 3 motor controller constructors should look now:</p>
+
+{% highlight java %}
+left = new Talon(Wiring.LEFT_MOTOR);
+right = new Talon(Wiring.RIGHT_MOTOR);
+{% endhighlight %}
+
+<p>Take some time to convert your current code to use Wiring and Calibration
+classes. You shouldn't have any arbitrary numbers going into constructors if you
+don't have to.  It is worth it to note however: don't go overboard.  There are
+some instances where using an arbitrary number is OK.  For now you can leave
+your <code>Joystick</code> constructor alone, as there isn't a very good place
+to put that number.</p>
+
+<p>In the next lesson we are going to learn one more organization tactic, then
+we will move on to sensors!</p>
