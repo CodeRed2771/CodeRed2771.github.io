@@ -34,6 +34,9 @@
   // Returns:
   //   array of post objects
   var filterPostsByPropertyValue = function(posts, property, value) {
+    if (property == 'query') {
+      property = 'tags';
+    }
     var values = value.split("+");
     var filteredPosts = [];
     // The last element is a null terminator
@@ -71,6 +74,73 @@
     return uniquePosts;
   };
 
+  var filterPostsByPropertyValueAggressive = function(posts, property, value) {
+    if (property == 'query') {
+      property = 'tags';
+    }
+
+    var lastchar = value.substring(value.length - 1, value.length);
+    if (lastchar == '+') {
+      value = value.substring(0, value.length - 1);
+    }
+
+    var values = value.split("+");
+
+    var uniqueValues = [];
+    $.each(values, function(i, el){
+      if($.inArray(el, uniqueValues) === -1) uniqueValues.push(el);
+    });
+    values = uniqueValues;
+
+    var indici = [];
+    indici.push(values.indexOf("of"));
+    indici.push(values.indexOf("the"));
+    indici.push(values.indexOf("in"));
+    indici.push(values.indexOf("at"));
+    indici.push(values.indexOf("on"));
+    indici.push(values.indexOf("a"));
+    indici.push(values.indexOf("and"));
+
+    for (var index in indici) {
+      index = indici[index];
+      if (index != -1) {
+        delete values[index];
+      }
+    }
+
+    var filteredPosts = [];
+    // The last element is a null terminator
+    posts.pop();
+    for (var i in posts) {
+      var post = posts[i];
+      searchable = post['searchable']
+      if (searchable != null) {
+        if (searchable.toLowerCase() == 'no' || searchable.toLowerCase() == 'false') {
+          continue;
+        }
+      }
+
+      title = post['title'].toLowerCase();
+      summary = post['summary'].toLowerCase();
+      category = post['category'].toLowerCase();
+
+      for (var i in values) {
+        var term = values[i].toLowerCase();
+        if (title.indexOf(term) > -1 || summary.indexOf(term) > -1 || category.indexOf(term) > -1) {
+          filteredPosts.push(post);
+        } else {
+        }
+      }
+    }
+
+    var uniquePosts = [];
+    $.each(filteredPosts, function(i, el){
+      if($.inArray(el, uniquePosts) === -1) uniquePosts.push(el);
+    });
+
+    return uniquePosts;
+  };
+
   function escapeRegExp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
   }
@@ -96,14 +166,13 @@
   );
 
   // Loop through each post to format it
-  $results = $container.find('ul.results');
   for (var i in posts) {
     var tagsList = '',
     post     = posts[i],
     tags     = post.tags;
 
     for (var j in tags) {
-      tagsList += '<a href="/guide/search.html?tags=' + tags[j] + '">' + tags[j] + '</a>\t'
+      tagsList += '<a href="/guide/search.html?query=' + tags[j] + '">' + tags[j] + '</a>\t'
     }
 
     $results.append(
@@ -126,11 +195,10 @@
 // Returns:
 //   undefined
 var noResultsPage = function(property, value) {
-  $('main').find('h2').text('No Results Found.').after(
-    '<p>We couldn\'t find anything associated with "' + value + '" here.  That '
-    + 'doesn\'t mean we don\'t have it.  Try refining your search.<br><br><b>'
-    + 'Can\'t find something?</b><br>Help us out... we can\'t write this whole '
-    + 'site ourselves.  See <a href="/helpuswrite.html">this page.</a></p>'
+    value = replaceAll(value, "+", " ");
+  $('body').find('h2').text('No Results Found.').after(
+    'Your search for ‘' + value + '’ did not turn up any results.  Try refining'
+     + ' your search.'
   );
 };
 
@@ -158,6 +226,7 @@ var replaceERBTags = function(elements) {
 window.alxPrc = {
   getParam: getParam,
   filterPostsByPropertyValue: filterPostsByPropertyValue,
+  filterPostsByPropertyValueAggressive: filterPostsByPropertyValueAggressive,
   noResultsPage: noResultsPage,
   layoutResultsPage: layoutResultsPage,
   replaceERBTags: replaceERBTags
@@ -166,7 +235,10 @@ window.alxPrc = {
 
 $(function() {
 
-  var parameters = ['category', 'tags'];
+  var $container = $('body');
+  $results = $container.find('ul.results').text("");
+
+  var parameters = ['category', 'query'];
   var map = {}
   //var index = 0;
   for (var idx in parameters) {
@@ -176,6 +248,9 @@ $(function() {
     if (value !== null) {
       $.getJSON("/guide/search.json", function(data) {
         posts = alxPrc.filterPostsByPropertyValue(data, type, value);
+        if (posts.length === 0) {
+          posts = alxPrc.filterPostsByPropertyValueAggressive(data,type,value);
+        }
         if (posts.length === 0) {
           alxPrc.noResultsPage(type, value);
         } else {

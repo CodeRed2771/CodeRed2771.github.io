@@ -4,42 +4,91 @@
 
 #tfnewsearch{
   /* padding: 20px 0px;*/
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  /*margin-left: -20px;*/
 }
 
 .tftextinput{
-  margin: 0;
-  padding: 5px 15px;
-  font-family: Arial, Helvetica, sans-serif;
+  background: #2E2E2E;
+  /*margin-left: -40px;*/
+  padding: 10px 15px;
+  font-family: Helvetica, Arial, sans-serif;
   font-size:14px;
-  border:1px solid #0076a3; border-right:0px;
-  border-top-left-radius: 5px 5px;
-  border-bottom-left-radius: 5px 5px;
+  width: calc(100% - 105px);
+  color: #FFF;
+  left: 0px;
+  /*width: 100%;*/
+  /*border:1px solid #525252; border-right:0px;*/
+  border: 0px;
+  /*border-top-left-radius: 5px 5px;
+  border-bottom-left-radius: 5px 5px;*/
+  -webkit-transition: background 0.1s linear;
+       -moz-transition: background 0.1s linear;
+        -ms-transition: background 0.1s linear;
+         -o-transition: background 0.1s linear;
+            transition: background 0.1s linear;
 }
+
+.tftextinput:hover {
+  background: #3E3E3E;
+
+}
+
+.tftextinput:focus {
+  background: #4A4A4A;
+  -webkit-transition: background 0.1s linear;
+       -moz-transition: background 0.1s linear;
+        -ms-transition: background 0.1s linear;
+         -o-transition: background 0.1s linear;
+            transition: background 0.1s linear;
+}
+
+/*.tftextinput:hover {
+  background: #2F2F2F;
+  -webkit-transition: background 0.1s linear;
+       -moz-transition: background 0.1s linear;
+        -ms-transition: background 0.1s linear;
+         -o-transition: background 0.1s linear;
+            transition: background 0.1s linear;
+}*/
 
 .tfbutton {
   margin: 0;
-  padding: 5px 15px;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 15px;
+  font-family: Helvetica, Arial, sans-serif;
   font-size:14px;
   outline: none;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   color: #ffffff;
-  border: solid 1px #0076a3; border-right:0px;
-  background: #0095cd;
-  background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
-  background: -moz-linear-gradient(top,  #00adee,  #0078a5);
-  border-top-right-radius: 5px 5px;
-  border-bottom-right-radius: 5px 5px;
+  border: 0px;
+  width: 75px;
+  /*border: solid 1px #525252; border-left :0px;*/
+  background: #880000;
+  /*background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+  background: -moz-linear-gradient(top,  #00adee,  #0078a5);*/
+  /*border-top-right-radius: 5px 5px;
+  border-bottom-right-radius: 5px 5px;*/
 }
+
+/*.arrow::before {
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  border-right-color: #880000;
+  border-width: 18px;
+  margin-left: -36px;
+}*/
 
 .tfbutton:hover {
   text-decoration: none;
-  background: #007ead;
-  background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
-  background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+  background: #FF0000;
+  /*background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+  background: -moz-linear-gradient(top,  #0095cc,  #00678e);*/
 }
 
 /* Fixes submit button height problem in Firefox */
@@ -54,12 +103,14 @@
 ul.results {
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 900px;
   list-style: none;
   display: inline-block;
 }
 
 ul.results > li {
-  margin: 2.0em 0;
+  margin: 10px 0;
 }
 
 ul.results > li:first-child {
@@ -76,19 +127,13 @@ li.result a {
 li.result a:hover {
 }
 
-li.result h3 {
-  font-size: 30px;
-  font-weight: 700;
-  text-align: left;
-}
-
 li.result p {
   text-align: left;
-  max-width: 800px;
+  /*max-width: 800px;*/
 }
 
 li.result div {
-  background: #FF9999;
+  background: #555555;
   padding: 15px;
   color:#000000;
   -webkit-transition:color 0.3s;
@@ -98,8 +143,12 @@ li.result div {
 }
 
 li.result h3 {
+  font-size: 30px;
   font-weight: 700;
-  color:#ffffff;
+  text-align: left;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
   -webkit-transition:color 0.3s;
   -moz-transition:color 0.3s;
   -o-transition:color 0.3s;
@@ -117,4 +166,5 @@ li.result h3:hover {
 
 .result p {
   margin: 0;
+  color: #fff;
 }
