@@ -113,7 +113,7 @@
     posts.pop();
     for (var i in posts) {
       var post = posts[i];
-      searchable = post['searchable']
+      var searchable = post['searchable']
       if (searchable != null) {
         if (searchable.toLowerCase() == 'no' || searchable.toLowerCase() == 'false') {
           continue;

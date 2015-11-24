@@ -35,7 +35,6 @@ p {
   margin: 0;
   padding: 0;
   font-size: 0;
-  /*padding: 15px 4px 17px 0;*/
   list-style: none;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
@@ -51,9 +50,7 @@ p {
 
   font: bold 12px/18px sans-serif;
   display: inline-block;
-  /*margin-right: -4px;*/
   position: relative;
-  /*background: #fff;*/
   cursor: pointer;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -61,16 +58,12 @@ p {
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-/*.menu ul li:hover {
-  background: #555;
-  color: #fff;
-}*/
+
 .menu ul li ul {
   padding: 0;
   position: absolute;
   top: 38px;
   left: 0;
-  /*width: 300px;*/
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -137,33 +130,6 @@ p {
     background: #DDDD00;
 }
 
-/*.menu {
-  padding: 0px;
-  margin: 0px;
-  font-size: 0;
-  text-align:center;
-}
-/*
-.menu li {
-  background: #1E1E1E;
-  color: white;
-  text-decoration: none;
-  width: 140px;
-  padding: 10px;
-  font-size: 14px;
-  display: inline-block;
-
-  -webkit-transition:background 0.3s;
-  -moz-transition:background 0.3s;
-  -o-transition:background 0.3s;
-  transition:background 0.3s
-} .menu li:hover {
-    -webkit-transition:background 0.3s;
-    -moz-transition:background 0.3s;
-    -o-transition:background 0.3s;
-    transition:background 0.3s
-}*/
-
 pre {
   background: lightgray;
   border: solid;
@@ -226,17 +192,14 @@ a {
 
 .product .upper {
   background: #FFFFFF;
-  /*display: inline-block;*/
   height: 110px;
   width: 100%;
   display: table;
 }
 
 .product .upper h1 {
-  /*display: inline-block;*/
   vertical-align: middle;
   display: table-cell;
-  /*line-height: normal;*/
 }
 
 .product .lower {
@@ -245,13 +208,11 @@ a {
 }
 
 .product {
-    /*display: table-cell;*/
     display: inline-block;
     margin: 5px;
     height: 250px;
     max-width: 410px;
     overflow: hidden;
-    /*float: left;*/
     border: solid;
     border-width: thin;
     border-radius: 10px;
@@ -277,15 +238,9 @@ a {
     height: 100px;
     margin: 5px 0 0 15px;
     float: left;
-    /*-webkit-transition: all 0.5s linear;
-       -moz-transition: all 0.5s linear;
-        -ms-transition: all 0.5s linear;
-         -o-transition: all 0.5s linear;
-            transition: all 0.5s linear;*/
 }
 
 .product img:hover {
-    /*opacity: 0.75;*/
 }
 
 .product a {
@@ -294,7 +249,6 @@ a {
     text-decoration: none;
 }
 .product a:hover {
-    /*color: #326ba3;*/
 }
 
 .product p {
