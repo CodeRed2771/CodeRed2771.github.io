@@ -7,3 +7,240 @@ summary: lesson not written yet.
 previous: 12.html
 next: 14.html
 ---
+<p>We are going to switch gears for this lesson and learn about something not
+directly related to FRC: version control.  Version control is a very important
+component of the programming process.  We are going to be learning a type of
+version control called git.  Verify that you have git installed, if not install
+the git command line from the <a href="https://git-scm.com/downloads">official
+git website</a>.  </p>
+
+<p>Git solves a very big problem.  Image you are working on a very document.
+You may save different versions of the file, such as "Document Apr 2015",
+"Document Backup", or "Document_updated".  Without realizing, you just created
+your own version control system.  This type of file naming will work for
+documents, but not for software projects.  For software, we use a version
+control system, in our case, git.  Git, and version controll in general, can do
+many things: </p>
+
+<ul>
+	<li><b>Backup and restore</b>.  Revert to previous versions, if necessary.</li>
+	<li><b>Synchronization</b>.  Several people can work on the same project at once.</li>
+	<li><b>Undo</b>.  Sometimes we just want to get rid of some recent changes, or
+    sometimes we mess up badly and need get rid of a weeks worth of work.  Git can
+    do this.</li>
+	<li><b>Tracking Changes</b>.  We can see how a file was changed, and by who.</li>
+	<li><b>Branching and merging</b>.  Git allows up to isolate some work that we
+    need to get done before it should be added to the main project.</li>
+</ul>
+
+<p>Hopefully you are starting to see the benefits.  Git is essentially the
+"Document Apr 2015" for code.  Git is very powerful, but unfortunately has a
+pretty steep learning curve.  Everyone, including myself, cannot remember every
+little detail of git.  If at any point you forget something or need to learn a
+command in greater depth than is described here, I recommend checking out the
+fantastic <a href="http://gitref.org/">Git Reference</a> site put together by
+the GitHub team.</p>
+
+<p>OK, lets get down and dirty.  Before we learn any commands, check out this
+high level overview of the git workflow: </p>
+
+<ol>
+	<li><b>Working Directory</b>: Make changes to your project.</li>
+	<li><b>Staging Area</b>: Move changes to the staging area</li>
+	<li><b>Repository</b>: Commit these changes to a repository.</li>
+	<li>Repeat.</li>
+</ol>
+
+<h2>Initializing a Repository</h2>
+
+<p>You can create an empty git repository in any directory by running this
+command:</p>
+
+<pre>git init</pre>
+
+<h2>Staging changes</h2>
+
+<p>Make some changes to your working directory.  Add some files, change existing
+ones, delete some.  When you are done, you need to move the changes that you
+want to keep into the staging area.  When you stage a chage, it will be included
+in the next commit.  Unstaged changes are not removed, they are just not
+included in the commit.  You stage changes with the git add command.  There a
+couple of different ways to use it: </p>
+
+<pre>git add --all</pre>
+
+<p>Adds all current changes to the staging area.</p>
+
+<pre>git add &lt;file_path&gt;</pre>
+
+<p>Adds only the specified file to the staging area.  You can also chain several
+files together like this:</p>
+
+<pre>git add file1.txt file2.txt info.txt</pre>
+
+<p>You can also add whole directories:</p>
+
+<pre>git add dir1/</pre>
+
+<h2>Committing</h2>
+
+<p>Once you have staged the changes that you want to keep, you need to commit
+them.  This is how you commit: </p>
+
+<pre>git commit -m "&lt;message&gt;"</pre>
+
+<p>There are other ways to commit, but this is the most used command.  <b>It is
+important the your commit message describes what changes were made.</b>  In the
+context of FRC, you will often need to change or view your previous year's
+code in some way which becomes very difficult or impossible if your commit
+messages are not written well.  An example of a good commit message could be:
+"Added a single controller mode to the KeyMap object."  Usuallly this is
+descriptive enough, but if a commit contains a lot of changes, the commit
+message probably should contain more detail.  When in doubt, err on the side of
+caution and add more detail.  </p>
+
+<hr>
+<h2>Backtracking</h2>
+
+<p>Say you change a file and haven't commited it yet.  You decide that how it
+was before was better.  You can undo those modifications by running:</p>
+
+<pre>git checkout HEAD &lt;filename&gt;</pre>
+
+<p>This will change filename back to how it was before.  HEAD simply means the
+last commit.  Now pretend that you have accidentally staged something for commit
+that you don't want to commit.  You can unstage it by running this command: </p>
+
+<pre>git reset HEAD &lt;filename&gt;</pre>
+
+<p>There is one more type of backtracking that you should know about: removing
+previous commits. You can see all of your previous commits by running the log
+command: </p>
+
+<pre>git log</pre>
+
+<p>The random string of characters attached to each commit is called a SHA.  You
+will need to use this SHA when attempting to reset to a previous version.  To
+make it easier, git only requires that you use the first seven characters of the
+SHA when reffering to commits.  So if the SHA is
+<code>5d692065cf51a2f50ea8e7b19b5a7ae512f633ba</code> you only need to use
+<code>5d69206.</code>  Anyway, to reset to a previous commit use this command:</p>
+
+<pre>git reset SHA</pre>
+
+<p>this will complete remove all commits that occured after the commit you
+specifiy.  These commits are <b>completely wiped out of history</b>.  This is
+useful if you make some big mistakes that you don't really want to keep.</p>
+
+<hr>
+<h2>Branching</h2>
+
+<p>If you are working on a big change that should not be put in the production
+environment until it has been tested and ready, you can create a branch.  You
+have actually been committing to a branch already.  Right now, your repository
+only has one branch: the default branch, which is named <code>master</code>.
+You can see what branch you are on by typing:</p>
+
+<pre>git branch</pre>
+
+<p>You can create a new branch by typing:</p>
+
+<pre>git branch &lt;new_branch_name&gt;</pre>
+
+<p>Branch names cannot contain spaces.  Once you have created a branch, you can
+switch between branches by typing </p>
+
+<pre>git checkout &lt;branch_name&gt;</pre>
+
+<p>The checkout command will switch all the files in your working directory
+based on which branch you are currently on.  Also, commits you make go to the
+branch that you are on.  So if you create a branch named new_feature and commit
+changes to that branch, the master branch will stay preserved and not be edited.
+Once you are done with the new_feature branch, you can then merge it into the
+master branch using the merge command.  </p>
+
+<pre>git merge &lt;branch_name&gt;</pre>
+
+<p>The merge command will merge &lt;branch_name&gt; into the current branch.  So
+if you wanted to merge your new_feature into master, you would need to first
+checkout master, then run git merge new_feature.</p>
+
+<p>Git will automatically combine changes in different branches if it can.  But
+let's say you make different changes to the same line in two different branches.
+Git does not know which change you want to keep.  In this case, git will create
+a merge conflict, which you will need to resolve.  For example, you could have a
+file that looks like this: </p>
+
+{% highlight java %}
+<<<<<<< HEAD
+master version of line
+=======
+new_feature version of line
+>>>>>>> new_feature
+{% endhighlight %}
+
+<p>You will need to remove all of git's markings, keep which the line the should
+be kept (or make a combination of the two) and then commit the result.  You
+should use a commit message such as "resolved merge conflict."</p>
+
+<p>When you are done working with a branch, you can delete it with:</p>
+
+<pre>git branch -d &lt;branch_name&gt;</pre>
+
+<hr>
+<h2>Remotes</h2>
+
+<p>If you are working on a project with other people, you will want a remote.
+Code Red uses GitHub, a popular remote service.  After you setup a repository on
+GitHub's website, you need to tell your local repository where it is:</p>
+
+<pre>git remote add &lt;name&gt; &lt;location&gt;</pre>
+
+<p>For example:</p>
+
+<pre>git remote add origin https://github.com/CodeRed2771/2016RobotCode.git</pre>
+
+<p>You can list all the remotes for your repository with this command:</p>
+
+<pre>git remote -v</pre>
+
+<p>If you want to get a already existing remote repository to your machine (such
+as one created by a team member), use the clone command:</p>
+
+<pre>git clone &lt;location&gt;</pre>
+
+<p>The clone command will setup a remote with the name origin.</p>
+
+<p>Once your remote is setup, you can use the following commands to "push" your
+changes to it:</p>
+
+<pre>git push &lt;remote_name&gt; &lt;branch_name&gt;</pre>
+
+<p>"pushes" any changes in your local repository to the remote.</p>
+
+<pre>git fetch</pre>
+
+<p>Gets the changes from the remote but does not merge them into your local
+repository.  Remote branches are stored on your machine in a way similar to
+branches.  So the remote's master branch would be origin/master.  You could
+merge the remote repository into your local repository by checking out the
+master branch and running:</p>
+
+<pre>git merge origin/master</pre>
+
+<p>To combine the last two commands into one, you could use the pull command,
+which will both fetch and merge the remote:</p>
+
+<pre>git pull</pre>
+
+<p>If you are getting an error when trying to push code to a remote saying that
+the push is "non-fast-forward", this means that the remote has commits that your
+local repository does not.  You will need to pull the changes from the remote,
+resolve conflicts if necessary, and then push the result.  </p>
+
+<hr>
+<p>Hopefully you have a general understanding of how you use git.  I realize git
+is hard, so if you don't fully understand what you just read, ask a team member
+who <em>does</em> understand, or go over to <a href="http://codecademy.com">
+  codecademy.com</a>, setup an account and take their
+git tutorial.  It should take two hours <u>max</u>, probably less.  </p>
