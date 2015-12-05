@@ -2,8 +2,91 @@
 layout: guide
 title: "Lesson 8: Potentiometers and Analog Input"
 category: Programming
-tags: []
-summary: lesson not written yet.
+tags: [analog, input, potentiometer, string, limits, bounds, stop, angle]
+summary: This lesson outlines how to setup and use a Potentiometer.
 previous: 7.html
 next: 9.html
 ---
+<p>Let's learn about about analog inputs.  A common use of an analog input is
+potentiometers (informally called a pot).  In the context of robotics, a pot is
+usually used to determine what angle a mechanism is at.  Another really cool use
+of a pot is in a string potentiometer.  Code Red has used these for the past several
+years, and we highly recommend your team look into them if they haven't already.
+You can purchase them <a href="http://www.andymark.com/product-p/am-2674.htm">on
+AndyMark</a>, or make them yourself for a little bit cheaper.  Basically they
+are 3D printed enclosures with a retractable key chain wound around inside + a
+spring + a potentiometer.  You can use the potentiometer to measure how far the
+string is pulled out.</p>
+
+<p>We can use the <code>AnalogPotentiometer</code> class to read from a
+potentiometer.  I'm only going to go over the basics of this object, but you can
+read the full documentation <a href="http://first.wpi.edu/FRC/roborio/release/docs/java/classedu_1_1wpi_1_1first_1_1wpilibj_1_1AnalogPotentiometer.html">here</a>
+if you want.  Let's get down and dirty... declare and instantiate an
+<code>AnalogPotentiometer</code> object:</p>
+
+{% highlight java %}
+AnalogPotentiometer pot;
+pot = new AnalogPotentiometer(0); // this pot is plugged into analog input 0
+{% endhighlight %}
+
+<p>Just like a <code>DigitalInput</code>, we can use the <code>get()</code>
+method to get the state of the potentiometer.  This time, <code>get()</code> is
+going to return a double instead of a boolean.  This double represents the
+current reading of the potentiometer.  Say that we have a pot attached to an
+arm, and are using it to get the angle.  We could do something like this:</p>
+
+{% highlight java %}
+double angle = pot.get();
+// do something with that angle, for example:
+if (angle > 2) {
+  // take action
+}
+{% endhighlight %}
+
+<p>If you need to know where a certain manipulator is, a limit switch is not
+always practical.  In these cases, a potentiometer is usually needed, so I want
+you to practice with a real situation.  I've actually already covered all I need
+to say for potentiometers.  I am going to leave an exersise below, that you
+should really try, that modifies the above code.</p>
+
+<p>It's worth noting that an <code>AnalogPotentiometer</code>'s
+<code>get()</code>  method does not return an angle when it is setup like we
+have set it up above. Rather, it just returns the value of that Potentiometer's
+analog input.  Usually this value ranges from 0 - 5ish. You actually can setup a
+potentiometer to return an angle, but you need to use a different constructor.
+Measure the analog value of your potentiometer when it is at full range.  You
+can then use this constructor which will make the <code>get()</code> method
+scale its output to the appriate degree value:</p>
+
+{% highlight java %}
+int channel = 0;
+double fullRange = 4.32; // The analog value when your pot is at full range
+double offset = 0; // Use this if you have a desired offset.
+AnalogPotentiometer pot = new AnalogPotentiometer(channel, fullRange, offset);
+{% endhighlight %}
+
+<p>See the <a href="http://first.wpi.edu/FRC/roborio/release/docs/java/classedu_1_1wpi_1_1first_1_1wpilibj_1_1AnalogPotentiometer.html">
+official documentation</a> for the <code>AnalogPotentiometer</code> class for
+more information</p>
+
+<p>I do want to mention the <code>AnalogInput</code> class that the WPI Java
+Library offers.  You should use that if you need to get analog input but are not
+using a potentiometer.  I'm actually going to talk about that more in the next
+lesson if you need more detail.</p>
+
+<h2>Exersises</h2>
+
+<ul>
+	<li>As mentioned earlier, a potentiometer can be used to track the position of
+an object.  Setup a potentiometer that will only allow a motor to move within a
+predetermined boundary. </li>
+	<li>Setup a potentiometer that can adjust a motor's speed output.</li>
+</ul>
+
+<hr />
+<h2>Using Code Red's Robot Library</h2>
+
+<p>Refer to the last lesson's "Using Code Red's Robot
+Library.  The answer here is exactly the same, just use a
+<code>VirtualizableAnalogInput</code> to replace <code>AnalogInput</code> in
+your code.</p>
