@@ -34,11 +34,11 @@ opposite.  Here is how the <code>get()</code> method could be implemented:</p>
 
 {% highlight java %}
 if (input.get()) {
-  // Perform an action, like stopping a motor
+    // Perform an action, like stopping a motor
 }
 {% endhighlight %}
 
-<p>That's actually all there is too it.  Some applications of limit switches
+<p>That's actually all there is to it.  Some applications of limit switches
 are: setting a calibration value, stopping a motor, causing another motor to
 move (like a shooter), and more.  Here is a main robot class with a
 <code>DigitalInput</code> completely set up: </p>
@@ -47,17 +47,17 @@ move (like a shooter), and more.  Here is a main robot class with a
 DigitalInput input;
 
 public void robotInit() {
-  input = new DigitalInput(0);
+    input = new DigitalInput(0);
 }
 
 public void teleopPeriodic() {
-  if(input.get()) {
-    // Perform an action, like stopping a motor
-  }
+    if(input.get()) {
+        // Perform an action, like stopping a motor
+    }
 }
 {% endhighlight %}
 
-<p>See if you can encorperate a limit switch into your existing code that we
+<p>See if you can incorporate a limit switch into your existing code that we
 started building in lesson 3.</p>
 
 <h2>Exersises</h2>
@@ -86,12 +86,12 @@ code would look like if it used Code Red's library:</p>
 VirtualizableDigitalInput input;
 
 public void robotInit() {
-  input = new VirtualizableDigitalInput(0);
+    input = new VirtualizableDigitalInput(0);
 }
 
 public void teleopPeriodic() {
-  if(input.get()) {
-    // Perform an action, like stopping a motor
-  }
+    if(input.get()) {
+        // Perform an action, like stopping a motor
+    }
 }
 {% endhighlight %}
