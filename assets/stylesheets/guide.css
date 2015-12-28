@@ -192,10 +192,6 @@ nav {
 
 a {
     color: #ffffff;
-    -webkit-transition:color 0.3s;
-    -moz-transition:color 0.3s;
-    -o-transition:color 0.3s;
-    transition:color 0.3s
 } a:hover {
     color: #ff6100;
     -webkit-transition:color 0.3s;
