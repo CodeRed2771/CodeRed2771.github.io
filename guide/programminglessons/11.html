@@ -1,9 +1,207 @@
 ---
 layout: guide
 title: "Lesson 11: Mecanum Drive"
-category: Programming
-tags: []
-summary: lesson not written yet.
+category: "Programming Lessons"
+tags: [mecanum, mechanum, mecum, mechum, drive, movement]
+summary: How to create a mecanum drive and details on the robot library drive objects.
 previous: 10.html
 next: 12.html
 ---
+<p>Mecanum drive allows movement in any direction.  Thus, it is useful for games
+where maneuverability is required.  Mecanum does eliminate basically all pushing
+ability, so don't expect to win in a pushing match with another robot.</p>
+
+<p>Do how do we program mecanum?  There are different ways to do it.  You may
+find a different way that works just as well as the method I am going to teach
+you.  Before we  start writing any code, lets do a little bit of preplanning.
+First, what joysticks will we need to use?  Since mecanum moves in all
+directions, I recommend having one whole stick (both x and y) controlling the
+direction of the robot, and another axis controlling rotation.  This is a total
+of three axes: x, y, and rot.  But what math do we need to do to calculate what
+wheels should spin and when?  The y-axis is the easiest.  When you push it to 1,
+all the wheels should spin forward, when you push it to -1, they should all
+spin back.  Lets create some variables for each wheel and store this value.
+I will be using the HID object from the Code Red Library to get joystick input
+in this lesson.</p>
+
+{% highlight java %}
+double leftF, leftB, rightF, rightB; // front & back, left & right
+
+leftF = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+rightF = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+leftB = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+rightB = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+{% endhighlight %}
+
+<p>If you test this code, you can see that pushing the left stick forward will
+make the robot move forward, and pushing it backward will make the robot move
+backward. Don't forget that you may need to add negatives, as we have learned
+before, to account for certain motors being mounted in the reverse orientation.
+(If you are using <code>PWMController</code> then just set backwards to
+<code>true</code> in the constructor.)</p>
+
+<p>OK, let's do side-to-side movement.  In order to move sideways, the wheels
+need to spin against each other.  See the diagram below to see what way the
+wheels need to spin for each direction.  We can simply add values from the
+x-axis on the gamepad to the variables we already have.  This can result in a
+motor speed greater than 1, but we will account for that later.</p>
+
+<img src="/assets/img/programminglessons/mecanum_diagram.png"/>
+
+<p>We can use negatives to make the wheels spin against each other.  Here is the
+code you should add to do side-to-side movement:</p>
+
+{% highlight java %}
+leftF += gamepad.axis(LogitechF310.STICK_LEFT_X);
+rightF += -gamepad.axis(LogitechF310.STICK_LEFT_X);
+leftB += -gamepad.axis(LogitechF310.STICK_LEFT_X);
+rightB += gamepad.axis(LogitechF310.STICK_LEFT_X);
+{% endhighlight %}
+
+<p>Again, you may need to add/remove negatives.  Let's talk about rotation.  When the robot
+is rotating to the right, the right wheels move backwards and the left move forward.
+We can add this code to account for that:</p>
+
+{% highlight java %}
+leftF += gamepad.axis(LogitechF310.STICK_RIGHT_X);
+rightF += -gamepad.axis(LogitechF310.STICK_RIGHT_X);
+leftB += gamepad.axis(LogitechF310.STICK_RIGHT_X);
+rightB += -gamepad.axis(LogitechF310.STICK_RIGHT_X);
+{% endhighlight %}
+
+<p>I mentioned this earlier, but hopefully you have been paying attention enough
+to realize: "This shouldn't work, some of the values could be more than 1".
+You're right.  There is a way to make it work though.  We find the maximum value
+out of these four numbers, and if it is bigger than 1, divide each value by that max.
+This will scale each motor output down to an appropriate value.</p>
+
+{% highlight java %}
+double max = Math.max(Math.max(Math.abs(leftF), Math.abs(rightF)), Math.max(Math.abs(leftB), Math.abs(rightB)));
+
+if (max > 1) {
+    leftF = leftF / max;
+    rightF = rightF / max;
+    leftB = leftB / max;
+    rightB = rightB / max;
+}
+{% endhighlight %}
+
+<p>All that is left to do is to give these values to the motors:</p>
+
+{% highlight java %}
+motorFL.set(leftF);
+motorFR.set(rightF);
+motorBL.set(leftB);
+motorBR.set(rightB);
+{% endhighlight %}
+
+<p>I really hope you understand why this works... but you probably don't. It's
+difficult to explain, but let me try summing it up.  You have three inputs.
+Each of these inputs acts on each of the four wheels. You add up the total of
+all the inputs for each wheel.  There is a high chance that these totals are
+going to be more than 1, so we scale all the values down to numbers that are
+appropriate for the motor controllers.  The negatives that I have in my code are
+there because side-to-side movement and rotation require some wheels to spin
+different directions to get the desired motion.</p>
+
+<p>Here is the completed code:</p>
+
+{% highlight java %}
+
+double leftF, leftB, rightF, rightB; // front & back, left & right
+
+leftF = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+rightF = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+leftB = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+rightB = gamepad.axis(LogitechF310.STICK_LEFT_Y);
+
+leftF += gamepad.axis(LogitechF310.STICK_LEFT_X);
+rightF += -gamepad.axis(LogitechF310.STICK_LEFT_X);
+leftB += -gamepad.axis(LogitechF310.STICK_LEFT_X);
+rightB += gamepad.axis(LogitechF310.STICK_LEFT_X);
+
+leftF += gamepad.axis(LogitechF310.STICK_RIGHT_X);
+rightF += -gamepad.axis(LogitechF310.STICK_RIGHT_X);
+leftB += gamepad.axis(LogitechF310.STICK_RIGHT_X);
+rightB += -gamepad.axis(LogitechF310.STICK_RIGHT_X);
+
+
+double max = Math.max(Math.max(Math.abs(leftF), Math.abs(rightF)), Math.max(Math.abs(leftB), Math.abs(rightB)));
+
+if (max > 1) {
+    leftF = leftF / max;
+    rightF = rightF / max;
+    leftB = leftB / max;
+    rightB = rightB / max;
+}
+
+motorFL.set(leftF);
+motorFR.set(rightF);
+motorBL.set(leftB);
+motorBR.set(rightB);
+{% endhighlight %}
+
+<h2>Exercises</h2>
+<ol>
+<li>Recreate the mecanum drive code from memory.  Refer back to this lesson as
+necessary.</li>
+<li>Apply the knowledge you learned in <a href="10.html">lesson 10</a> to a
+mecanum drive.  Try out both solution 1 and solution 2.</li>
+</ol>
+
+<hr>
+<h2>Using Code Red's library</h2>
+<p>Fortunately it's easy to implement a mecanum drive using the Code Red Robot
+Library. It's important to understand why the library works, however.  Do not
+simply skip over the above section and only learn this way.  The Robot Library
+allows you to not reinvent the wheel.  Since you know how to write mecanum drive
+now, you could do it for 10 different robots and it would be the exact same for
+each one.  That's why we added it into the library.</p>
+
+<p>There is a class called <code>Drive</code> in the library. The goal of the
+drive object is to control the entire drive train. The library has two different
+types of drive trains, each with their own class that extend the base
+<code>Drive</code> class.  These two drive trains are tank and mecanum.  Let's
+implement mecanum.  Lets also use some PWMControllers for our motors, and let's
+say that the left two motors are mounted on to the robot upside-down. Here is
+the entire main robot class required to get the robot moving with mecanum
+drive:</p>
+
+{% highlight java %}
+public class Robot extends IterativeRobot {
+
+    PWMController leftF, leftB, rightF, rightB;
+    HID driveGamepad;
+    Drive drive;
+
+    public void robotInit() {
+        driveGamepad = new HID(0);
+        leftF = new PWMController(Wiring.FRONT_LEFT_MOTOR, true); // this motor is mounted in reverse
+        leftB = new PWMController(Wiring.REAR_LEFT_MOTOR, true); // so is this one
+        rightF = new PWMController(Wiring.FRONT_RIGHT_MOTOR, false);
+        rightB = new PWMController(Wiring.REAR_RIGHT_MOTOR, false);
+
+        drive = new MecanumDrive(leftF, rightF, leftB, rightB);
+    }
+
+    public void teleopPeriodic() {
+        drive.setXYRot(driveGamepad.axis(LogitechF310.STICK_LEFT_X), driveGamepad.axis(LogitechF310.STICK_LEFT_Y),
+                driveGamepad.axis(LogitechF310.STICK_RIGHT_X));
+    }
+}
+{% endhighlight %}
+
+<p class="important">Ideally you would use a KeyMap object to keep track of your
+gamepad, but I did not include that in this lesson for simplicity sake.</p>
+
+<p>Here are a few other things worth mentioning about the robot library's drive
+objects that don't really fit into this lesson but aren't long enough to create
+their own lesson from: </p>
+
+<ul>
+  <li>You could also do the same thing with a tank drive.  Replace the
+  <code>MecanumDrive</code> class with the <code>TankDrive</code> class.</li>
+  <li>You can also implement a field oriented drive system using the robot
+  library. instantiate a <code>FieldOrientedDrive</code> object, and give it a
+  drive object to control.  (Probably mecanum).</li>
+</ul>
