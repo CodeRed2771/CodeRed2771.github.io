@@ -3,7 +3,7 @@
     padding:0
 }
 
-.container {
+#container {
     position:absolute;
     width: 100%;
     height: 100%;
@@ -11,12 +11,12 @@
     top: 0px;
 }
 
-.navbar h3 {
+#navbar h3 {
   margin: 0;
   padding: 0;
 }
 
-.navbar {
+#navbar {
     text-align: center;
     color: #FFFFFF;
     font-size: 12pt;
@@ -30,7 +30,7 @@
 
 }
 
-.navbar .navbar_header {
+#navbar #navbar_header {
     width: 100%;
     text-align: left;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -39,27 +39,27 @@
     padding: 0px;
 }
 
-.navbar .navbar_header .back {
+#navbar #navbar_header #back {
   margin-left: 20px;
 }
 
-.navbar .navbar_header h1 {
-  margin: 0;
+#navbar #navbar_header h1 {
+  margin: -10px;
 }
 
-.navbar_header img {
+#navbar_header img {
     width: 85%;
     margin: 10px 0px;
 }
 
-.navbar ul {
+#navbar ul {
   list-style: none;
   margin: 0;
   padding: 0;
   cursor: pointer;
 }
 
-.navbar ul li {
+#navbar ul li {
   background: #444444;
   color: white;
   text-decoration: none;
@@ -69,7 +69,7 @@
   font-size: 20px;
 }
 
-.navbar ul li:hover {
+#navbar ul li:hover {
   background: #333333;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -77,12 +77,12 @@
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-.navbar ul a {
+#navbar ul a {
   text-decoration: none;
 }
 
 
-.navbar ul li ul {
+#navbar ul li ul {
   padding: 0;
   position: absolute;
   left: 0;
@@ -102,7 +102,7 @@
   margin-bottom: 15px;
 }
 
-.navbar ul li ul li {
+#navbar ul li ul li {
   background: #444444;
   width: 100%;
   margin:0;
@@ -113,9 +113,9 @@
   font-size: 14px;
 }
 
-.navbar ul li ul li:hover { background: #666; }
+#navbar ul li ul li:hover { background: #666; }
 
-.navbar ul li:hover > ul {
+#navbar ul li:hover > ul {
   display: block;
   opacity: 1;
   visibility: visible;
@@ -124,27 +124,27 @@
 
 body {
   background: #1E1E1E;
-  font-family: Helvetica, Arial, sans-serif;
+  color: #303030;
+  font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif;
   font-size: 16px;
-  line-height: 1.5;
-  font-weight: 300;
+  line-height: 1.6;
 }
 
-.content {
+#content {
     background: white;
     text-align: left;
-    font-size: 12pt;
-    padding: 30px 35px;
+    font-size: 16px;
+    padding: 40px;
 
     position:absolute;
     right:0;
     min-height:100%;
-    width: calc(79% - 110px);
+    width: calc(79% - 120px);
 }
 
 .footer {
     text-align: center;
-    font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif;
     color: #898989;
     font-size: 10pt;
     padding-top: 30px;
@@ -200,14 +200,15 @@ a {
     transition:color 0.3s
 }
 
-.content a {
+#content a {
   color: #3399FF;
   -webkit-transition:color 0.3s;
   -moz-transition:color 0.3s;
   -o-transition:color 0.3s;
   transition:color 0.3s
-} .content a:hover {
-  color: #ff6100;
+} #content a:hover {
+  /*color: #ff6100;*/
+  color: red;
   -webkit-transition:color 0.3s;
   -moz-transition:color 0.3s;
   -o-transition:color 0.3s;
@@ -217,6 +218,10 @@ a {
 pre {
   display: inline;
   margin: 0;
+}
+
+p code {
+    color: #FF4747;
 }
 
 div .highlight {
@@ -231,9 +236,26 @@ div .highlight {
     max-width: 800px;
 }
 
-h1 {
+#content h1 {
   margin-bottom: 20px;
+  font-size: 42px;
 }
+
+#content h1, h2, h3, h4, h5, h6 {
+    color: #c10000;
+    font-weight: normal;
+}
+
+#navbar_header h3 {
+    color:white;
+    font-weight: bold;
+}
+
+/*
+#navbar > #navbar_header > center > a > h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color:white;
+}*/
 
 p, pre, h2, h3, h4, h5, h6, ol, ul, img {
   margin-bottom: 20px;
@@ -249,6 +271,10 @@ ul {
 
 hr {
   margin-bottom: 10px;
+  height: 1px;
+  border-width: 0;
+  color: gray;
+  background-color: gray;
 }
 
 table {
@@ -299,10 +325,10 @@ td {
 
 .tip {
   border-radius: 5px;
-  border: solid;
+  /*border: solid;
   border-width: thin;
-  border-color: gray;
-  background: lightgray;
+  border-color: gray;*/
+  background: #eef;
   padding: 15px;
   float: right;
   margin: 0;
@@ -317,4 +343,78 @@ td {
 
 ul ul {
   margin-bottom: 0px;
+}
+
+.products {
+}
+
+.product .upper {
+  background: #FFFFFF;
+  height: 110px;
+  width: 100%;
+  display: table;
+}
+
+.product .upper h1 {
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.product .lower {
+  padding: 20px;
+  /*max-width: 500px;*/
+}
+
+.product {
+    display: inline-block;
+    margin: 5px;
+    height: 250px;
+    min-width: 400px;
+    width: calc(50% - 15px);
+    /*max-width: 410px;*/
+    overflow: hidden;
+    border: solid;
+    border-width: thin;
+    border-radius: 10px;
+    border-color: #D8D8D8;
+    background: #F0F0F0;
+    /*-webkit-transition: all 0.25s linear;
+       -moz-transition: all 0.25s linear;
+        -ms-transition: all 0.25s linear;
+         -o-transition: all 0.25s linear;
+            transition: all 0.25s linear;*/
+} .product:hover {
+  border-color: #4183c4;
+}
+
+.product h1 {
+    font-size: 36px;
+    color: #4183c4;
+    margin: 0;
+}
+
+.product img {
+    width: 100px;
+    height: 100px;
+    margin: 5px 0 0 15px;
+    float: left;
+}
+
+.product img:hover {
+}
+
+.product a {
+    font-size: 36px;
+    color: #4183c4;
+    text-decoration: none;
+}
+.product a:hover {
+}
+
+.product p {
+    /*max-width: 400px;*/
+}
+
+.product p a {
+    font-size: 16px;
 }

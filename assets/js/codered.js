@@ -172,7 +172,7 @@
     tags     = post.tags;
 
     for (var j in tags) {
-      tagsList += '<a href="/guide/search.html?query=' + tags[j] + '">' + tags[j] + '</a>\t'
+      tagsList += '<a href="/search.html?query=' + tags[j] + '">' + tags[j] + '</a>\t'
     }
 
     $results.append(
@@ -181,7 +181,7 @@
       + '<a href="' + post.href + '"><h3>' + post.title +'</h3></a>'
       + '<p><b>' + post.summary + '</b></p>'
       + '<p>Tags: <i>' + tagsList + '</i></p>'
-      + '<p>In: <a href="/guide/search.html?category=' + post.category +'">' +  majusculeFirst(post.category) + '</a></p>'
+      + '<p>In: <a href="/search.html?category=' + post.category +'">' +  majusculeFirst(post.category) + '</a></p>'
       + '</div>'
       + '</li>'
     );
@@ -246,7 +246,7 @@ $(function() {
   }
   $.each(map, function(type, value) {
     if (value !== null) {
-      $.getJSON("/guide/search.json", function(data) {
+      $.getJSON("/search.json", function(data) {
         posts = alxPrc.filterPostsByPropertyValue(data, type, value);
         if (posts.length === 0) {
           posts = alxPrc.filterPostsByPropertyValueAggressive(data,type,value);

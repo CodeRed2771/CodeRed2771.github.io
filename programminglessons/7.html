@@ -1,0 +1,97 @@
+---
+layout: default
+title: "Lesson 7: Limit Switches and Digital Input"
+category: "Programming Lessons"
+tags: [limit, switches, digital, input, limits, bounds, stop]
+summary: This lesson outlines how to setup and use limit switches as digital inputs.
+previous: 6.html
+next: 8.html
+---
+<p>Please note that although Encoders use the digital input ports, this lesson
+is not about Encoders.  <a href="18.html">See Lesson 18 for Encoders.</a></p>
+
+<p>Getting digital inputs from the roboRIO is <i>super</i> easy.  There is a
+<code>DigitalInput</code> class that allows you to do this.  Here's how you set
+it up: </p>
+
+{% highlight java %}
+DigitalInput input;
+input = new DigitalInput(0);
+{% endhighlight %}
+
+<p>You can see that the constructor takes a single integer.  Just like motor
+controllers and joysticks, this represents the port that the digital input is
+plugged into on the roboRIO.  The digital input above is plugged into port
+0.</p>
+
+<p>Now, to get the state of the digital input you use the <code>get()</code>
+method.  Limit switches can be wired so that they are defaultly open or
+defaultly closed.  If the limit switch is wired so that it defaultly open, then
+the <code>get()</code> method will return <code>false</code> when the limit
+switch is not pressed down, and <code>true</code> when it is pressed down.  If
+the limit switch is wired so that it is defaultly closed, then it is the exact
+opposite.  Here is how the <code>get()</code> method could be implemented:</p>
+
+{% highlight java %}
+if (input.get()) {
+    // Perform an action, like stopping a motor
+}
+{% endhighlight %}
+
+<p>That's actually all there is to it.  Some applications of limit switches
+are: setting a calibration value, stopping a motor, causing another motor to
+move (like a shooter), and more.  Here is a main robot class with a
+<code>DigitalInput</code> completely set up: </p>
+
+{% highlight java %}
+DigitalInput input;
+
+public void robotInit() {
+    input = new DigitalInput(0);
+}
+
+public void teleopPeriodic() {
+    if(input.get()) {
+        // Perform an action, like stopping a motor
+    }
+}
+{% endhighlight %}
+
+<p>See if you can incorporate a limit switch into your existing code that we
+started building in lesson 3.</p>
+
+<h2>Exercises</h2>
+
+<ul>
+	<li>Make a motor that is controlled by a joystick not be able to run when a
+limit switch has been pressed</li>
+</ul>
+
+<hr />
+<h2>Using Code Red's Robot Library</h2>
+
+<p>Something that we are going to touch on in a <a href="34.html">much later
+lesson</a> is input virtualization, which our library offers.  Code Red's robot
+library has its own digital input class, called
+<code>VirtualizableDigitalInput</code>.  This class offers no additional
+features aside from input virtualization.  So if you are not planning on taking
+advantage of input virtualization, then don't bother using our class.  However,
+if you do what to use it so that it is already set up when you get to the
+virtualization lesson, it is used <i>exactly</i> the same as
+<code>DigitalInput</code>: just replace <code>DigitalInput</code> in
+your code with <code>VirtualizableDigitalInput</code>.  Here is what the above
+code would look like if it used Code Red's library:</p>
+
+{% highlight java %}
+VirtualizableDigitalInput input;
+
+public void robotInit() {
+    input = new VirtualizableDigitalInput(0);
+}
+
+public void teleopPeriodic() {
+    if(input.get()) {
+        // Perform an action, like stopping a motor
+    }
+}
+{% endhighlight %}

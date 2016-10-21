@@ -1,5 +1,7 @@
 syntax-highlighting:
   enabled: true
   css: /assets/stylesheets/syntax.css
+highlighter: rouge
+repository: CodeRed2771/CodeRed2771.github.io
 gems:
   - jekyll-redirect-from

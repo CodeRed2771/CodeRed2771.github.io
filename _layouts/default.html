@@ -1,60 +1,71 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-  <title>
-    {% if page.title %}
-    {{ page.title }}
-    {% else %}
-    Controls Resources - Code Red Robotics
-    {% endif %}
-  </title>
+    <head>
+      <title>
+        {% if page.title %}
+        {{ page.title }} - Controls Resources
+        {% else %}
+        Controls Resources - Code Red Robotics
+        {% endif %}
+      </title>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+        <meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-    <meta name="author" content="Code Red Robotics">
-    <meta name="description" content="Controls resources for FIRST FRC robotics teams.  ">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Code Red Robotics">
+        <meta name="description" content="Controls resources for FIRST FRC robotics teams.  ">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/assets/stylesheets/main.css" type="text/css">
-    <link rel="stylesheet" href="/assets/stylesheets/header.css" type="text/css">
-    <link rel="stylesheet" href="/assets/stylesheets/footer.css" type="text/css">
-    <link rel="stylesheet" href="/assets/stylesheets/search.css" type="text/css">
-    <link rel="stylesheet" href="/assets/stylesheets/syntax.css" type="text/css">
-    <link rel="icon" type="image/x-icon" href="/favicon.png" />
-  </head>
-  <body>
-    {% include header.html %}
-    <div class="body">
-      <div class="page">
-        <div class="menu">
-          <ul><a href="/"><li id="nav1">Home</li></a>
-            <li id="nav2">
-              Software
-              <ul>
-                <a href="/dashboard"><li>Dashboard</li></a>
-                <a href="/software/libraries"><li>Advanced Libraries</li></a>
-                <a href="/software/pitmanager"><li>Pit Manager</li></a>
-                <a href="/software/virtualrobot"><li>Virtual Robot</li></a>
-              </ul>
-            </li>
-            <a href="/guide"><li id="nav3">Controls Guide</li></a>
-            <a href="/module"><li id="nav4">Controls Module</li></a>
-            <a href="/robots"><li id="nav5">Robots</li></a>
-            <a href="/contact"><li id="nav6">Contact Us</li></a>
-          </ul>
-        </div>
-        <div class="content">
-          <center>
-            <main>
+        <link rel="stylesheet" href="/assets/stylesheets/guide.css" type="text/css">
+        <link rel="stylesheet" href="/assets/stylesheets/search.css" type="text/css">
+        <link rel="stylesheet" href="/assets/stylesheets/syntax.css" type="text/css">
+        <link rel="icon" type="image/x-icon" href="/favicon.png" />
+    </head>
+    <body>
+        <div id="container">
+            <div id="content">
+              {% if page.title %}
+              <h1>{{ page.title }}</h1>
+              {% endif %}
               {{ content }}
-              <!-- {% include footer.html %} -->
-            </main>
-          </center>
+              {% if page.previous or page.next %}
+                <div class="lessonnav">
+                  {% if page.previous %}
+                    <a href="{{ page.previous }}" style="float: left"><--- Previous Lesson</a>
+                  {% endif %}
+                  {% if page.next %}
+                    <a href="{{ page.next }}" style="float: right">Next Lesson---></a>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% include footer.html %}
+            </div>
+            <div id="navbar" class ="navbar">
+              <div id="navbar_header">
+                <a id="back" href="http://coderedrobotics.com/">http://coderedrobotics.com</a>
+                <center>
+                    <a href="/"><img src="/assets/img/mainlogo.png" alt="Code Red Logo"></a>
+                    <h3>The Complete Guide to the</h3>
+                    <h1>FRC Controls System</h1>
+                    <p></p>
+                </center>
+              </div>
+              <div id="tfheader">
+                <form id="tfnewsearch" method="get" action="/search.html">
+                  <input type="text" class="tftextinput" name="query" placeholder="Search..."><span class="arrow"><input type="submit" value="search" class="tfbutton"></span>
+                </form>
+                <div class="tfclear"></div>
+              </div>
+            <nav>
+              <ul>
+                <a href="/"><li>Home</li></a>
+                <a href="/programminglessons"><li>Programming Lessons</li></a>
+                <a href="/library"><li>Custom Library</li></a>
+                <a href="/robots"><li>Robot Code</li></a>
+              </ul>
+            </nav>
+          </div>
         </div>
-      </div>
-    </div>
-    {% include pagefooter.html %}
-  </body>
+    </body>
 </html>

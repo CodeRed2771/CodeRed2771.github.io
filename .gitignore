@@ -1,1 +1,3 @@
 _site
+*.xcf
+_layouts/default_old.html
