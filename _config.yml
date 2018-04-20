@@ -3,5 +3,5 @@ syntax-highlighting:
   css: /assets/stylesheets/syntax.css
 highlighter: rouge
 repository: CodeRed2771/CodeRed2771.github.io
-gems:
+plugins:
   - jekyll-redirect-from
