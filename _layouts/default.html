@@ -34,7 +34,7 @@
                 </a>
               </div>
               <div id="tfheader">
-                <form id="tfnewsearch" method="get" action="/search.html">
+                <form id="tfnewsearch" method="get" action="/search">
                   <label class="visually-hidden" for="site-search">Search the guide</label>
                   <input id="site-search" type="text" class="tftextinput" name="query" placeholder="Search the guide">
                   <input type="submit" value="Search" class="tfbutton">
@@ -45,8 +45,8 @@
                 <ul>
                   <li><a href="/">Home</a></li>
                   <li><a href="/programminglessons/">Programming Lessons</a></li>
-                  <li><a href="/robots.html">Robot Code</a></li>
-                  <li><a href="/contact.html">Contact</a></li>
+                  <li><a href="/robots">Robot Code</a></li>
+                  <li><a href="/contact">Contact</a></li>
                 </ul>
               </nav>
           </aside>
@@ -65,7 +65,7 @@
                 {% endif %}
               </div>
             {% endif %}
-            {% include footer.html %}
+            {% include footer %}
           </main>
         </div>
     </body>
