@@ -1,0 +1,52 @@
+---
+layout: default
+title: "Lesson 41: Path Planning and Trajectories"
+category: Programming
+tags: [path, planning, trajectory, odometry, pose, field]
+summary: Understanding field coordinates, trajectories, odometry, and why path following needs good sensors.
+previous: 40
+next: 42
+---
+<p>Path planning is autonomous driving with a map. Instead of only saying "drive
+forward for two seconds," a path describes where the robot should be on the
+field over time.</p>
+
+<h2>Field Coordinates</h2>
+
+<p>Path planning uses a coordinate system. The robot has a pose: x position, y
+position, and heading. If the starting pose is wrong, the path follower starts
+with a bad assumption.</p>
+
+<h2>Trajectories</h2>
+
+<p>A trajectory is a path with timing. It describes not only where the robot
+should go, but how fast it should move along the way.</p>
+
+<h2>Why Odometry Matters</h2>
+
+<p>The robot needs to know where it thinks it is while following the path.
+Encoders and gyro readings update odometry. Slipping wheels, bad gyro resets,
+or incorrect wheel measurements will make the robot drift away from the planned
+path.</p>
+
+<h2>Path Tools</h2>
+
+<p>WPILib documents path planning tools and trajectory concepts. Teams may also
+use third-party tools depending on the season and robot. Treat the tool as a
+helper, not magic: the robot still needs correct measurements, tuned control,
+and safe testing.</p>
+
+<h2>Testing Paths</h2>
+
+<ul>
+  <li>Start slow.</li>
+  <li>Verify the robot's starting pose.</li>
+  <li>Test one path at a time.</li>
+  <li>Keep a quick way to stop the robot.</li>
+  <li>Log pose and target values while testing.</li>
+</ul>
+
+<h2>Practice</h2>
+
+<p>Draw a path from the starting line to a scoring location. Mark the starting
+pose, ending pose, and one obstacle the robot must avoid.</p>

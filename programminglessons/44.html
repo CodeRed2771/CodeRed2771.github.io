@@ -1,0 +1,46 @@
+---
+layout: default
+title: "Lesson 44: Driver Station and Match Readiness"
+category: Programming
+tags: [driver, station, match, readiness, joystick, battery, fms]
+summary: Preparing robot software and operator controls before a match.
+previous: 43
+next: 45
+---
+<p>Good robot code still needs good match preparation. Driver Station setup,
+joystick order, battery health, and quick checks can decide whether your code
+actually gets to run on the field.</p>
+
+<h2>Before the Match</h2>
+
+<ul>
+  <li>Confirm the correct robot code is deployed.</li>
+  <li>Check that controllers are in the expected USB order.</li>
+  <li>Choose the correct autonomous routine.</li>
+  <li>Verify battery voltage is healthy.</li>
+  <li>Confirm the robot disables and enables cleanly.</li>
+  <li>Check dashboard connection if your drivers depend on it.</li>
+</ul>
+
+<h2>Joystick Order</h2>
+
+<p>If the driver controller moves to the wrong Driver Station slot, the robot
+may read the operator controller as the driver controller. Use clear labels and
+have a pre-match check.</p>
+
+<h2>Disabled Behavior</h2>
+
+<p>Disabled mode should be calm. Motors should not run, mechanisms should not
+surprise anyone, and dashboard setup should not take so much time that enable is
+delayed.</p>
+
+<h2>Field Connection</h2>
+
+<p>The Field Management System controls when the robot is enabled during a real
+match. Your code should not depend on a human enabling at exactly the moment
+you expected. Autonomous should initialize cleanly every time.</p>
+
+<h2>Practice</h2>
+
+<p>Create a one-page software pre-match checklist for your drive team. Keep it
+short enough that it can be used under pressure.</p>

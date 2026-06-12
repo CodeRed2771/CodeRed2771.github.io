@@ -1,0 +1,51 @@
+---
+layout: default
+title: "Lesson 42: Simulation and Testing Without the Robot"
+category: Programming
+tags: [simulation, testing, unit, mock, robot, laptop]
+summary: Testing robot logic on a laptop with simulation, small tests, and hardware abstraction.
+previous: 41
+next: 43
+---
+<p>The real robot is not always available. Simulation and testing let you check
+parts of your code on a laptop before you get precious time with hardware.</p>
+
+<h2>Separate Logic From Hardware</h2>
+
+<p>Testing is easier when logic is not glued directly to motor objects. For
+example, a method that calculates a motor speed from an error can be tested
+without a robot.</p>
+
+{% highlight java %}
+public double calculateTurnOutput(double targetAngle, double currentAngle) {
+    double error = targetAngle - currentAngle;
+    return error * 0.03;
+}
+{% endhighlight %}
+
+<h2>Use Simulation for Feedback</h2>
+
+<p>WPILib includes robot simulation tools. Simulation cannot perfectly predict a
+real robot, but it can catch code structure problems, command scheduling
+issues, dashboard values, and some sensor logic mistakes.</p>
+
+<h2>Mock Small Pieces</h2>
+
+<p>A mock is a fake version of something. If your mechanism code depends on a
+sensor interface, a test can provide a fake sensor value and verify the
+mechanism response.</p>
+
+<h2>What To Test</h2>
+
+<ul>
+  <li>Math helpers</li>
+  <li>State transitions</li>
+  <li>Button toggle logic</li>
+  <li>Safety checks</li>
+  <li>Autonomous step sequencing</li>
+</ul>
+
+<h2>Practice</h2>
+
+<p>Pick one method that does not need real hardware. Write three inputs and the
+expected output for each. That table is the beginning of a test.</p>

@@ -1,0 +1,57 @@
+---
+layout: default
+title: "Lesson 40: Autonomous Routines"
+category: Programming
+tags: [autonomous, auto, routine, sequence, chooser, failsafe]
+summary: Planning autonomous routines with steps, sensors, choosers, and fail-safes.
+previous: 39
+next: 41
+---
+<p>Autonomous code runs without driver control, so it needs to be planned and
+tested carefully. A good autonomous routine is a sequence of clear steps with
+safe exit conditions.</p>
+
+<h2>Write the Routine in English First</h2>
+
+<p>Before writing Java, describe the routine:</p>
+
+<ol>
+  <li>Reset encoders and gyro.</li>
+  <li>Drive forward 60 inches while holding zero degrees.</li>
+  <li>Stop the drive train.</li>
+  <li>Run the shooter until it reaches speed.</li>
+  <li>Feed the game piece.</li>
+</ol>
+
+<p>If you cannot explain the routine in English, the code will probably be hard
+to debug.</p>
+
+<h2>Every Step Needs an Exit</h2>
+
+<p>A step can end because it reached a sensor target, because a timer finished,
+or because a fault happened. Never write an autonomous step that can run forever
+if a sensor fails.</p>
+
+<h2>Use an Auto Chooser</h2>
+
+<p>Teams often need multiple autonomous routines. A dashboard chooser lets the
+drive team pick the routine before the match.</p>
+
+{% highlight java %}
+SendableChooser<Command> autoChooser = new SendableChooser<>();
+autoChooser.setDefaultOption("Taxi", taxiAuto);
+autoChooser.addOption("Score and Taxi", scoreAndTaxiAuto);
+SmartDashboard.putData("Auto", autoChooser);
+{% endhighlight %}
+
+<h2>Test in Layers</h2>
+
+<p>Test the drive step by itself. Then test the shooter step by itself. Then put
+them together. If you only test the full routine, you will spend more time
+guessing which step failed.</p>
+
+<h2>Practice</h2>
+
+<p>Write three autonomous routines for the same robot: a safe mobility routine,
+a scoring routine, and a fallback routine that does the least risky useful
+thing.</p>

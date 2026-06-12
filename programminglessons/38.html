@@ -1,0 +1,58 @@
+---
+layout: default
+title: "Lesson 38: CAN Motor Controllers"
+category: Programming
+tags: [can, motor, controller, spark, talon, id, current, limit]
+summary: Understanding CAN motor controllers, CAN IDs, configuration, inversion, and safety limits.
+previous: 37
+next: 39
+---
+<p>Many modern FRC motor controllers communicate over CAN instead of PWM. CAN
+lets the roboRIO send commands and receive information over a shared bus. It can
+also let smart motor controllers handle configuration, current limits, and
+sensor feedback.</p>
+
+<h2>CAN IDs</h2>
+
+<p>Every CAN device needs a unique ID. If two devices have the same ID, the robot
+may behave unpredictably. Keep CAN IDs in your wiring constants just like PWM
+ports.</p>
+
+{% highlight java %}
+public class Wiring {
+    public static final int LEFT_LEADER_CAN_ID = 1;
+    public static final int RIGHT_LEADER_CAN_ID = 2;
+    public static final int INTAKE_CAN_ID = 9;
+}
+{% endhighlight %}
+
+<h2>Configure Deliberately</h2>
+
+<p>CAN controllers often remember settings. That is useful, but it can also
+surprise you if a controller was used on a different robot. Set important
+configuration in code or through a documented team setup process.</p>
+
+<ul>
+  <li>Motor inversion</li>
+  <li>Brake or coast mode</li>
+  <li>Current limits</li>
+  <li>Encoder conversion factors</li>
+  <li>Follower relationships</li>
+</ul>
+
+<h2>Current Limits</h2>
+
+<p>Current limits protect motors, wiring, and breakers. They are also a tuning
+tool: a mechanism that stalls briefly may need a different limit than a drive
+motor.</p>
+
+<h2>Read Status Information</h2>
+
+<p>Smart controllers can often report temperature, current, voltage, position,
+velocity, and faults. Put the useful values on your dashboard or in your logs
+while testing.</p>
+
+<h2>Practice</h2>
+
+<p>Create a CAN ID table for your robot. Include device name, CAN ID, motor
+direction, current limit, and whether it should brake or coast when stopped.</p>

@@ -1,0 +1,49 @@
+---
+layout: default
+title: "Lesson 43: Logging and Telemetry"
+category: Programming
+tags: [logging, telemetry, dashboard, data, faults]
+summary: Recording robot data so bugs can be understood after a test or match.
+previous: 42
+next: 44
+---
+<p>Telemetry is information the robot reports while it runs. Logging is saving
+that information so you can inspect it later. Together, they turn "it felt
+weird" into data you can debug.</p>
+
+<h2>Log Events and Values</h2>
+
+<p>Useful logs include both continuous values and important events.</p>
+
+<ul>
+  <li>Battery voltage</li>
+  <li>Motor commands</li>
+  <li>Encoder positions and velocities</li>
+  <li>Gyro heading</li>
+  <li>Current autonomous step</li>
+  <li>State changes</li>
+  <li>Fault messages</li>
+</ul>
+
+<h2>Name Logs Clearly</h2>
+
+<p>A log called <code>leftVelocity</code> is better than <code>value1</code>.
+Include subsystem names when useful, such as <code>Drive/LeftVelocity</code> or
+<code>Shooter/Ready</code>.</p>
+
+<h2>Do Not Log Everything Forever</h2>
+
+<p>Too much data can hide the useful data. Start with values that answer real
+questions: Why did autonomous stop? Did the shooter reach speed? Did the sensor
+change when the mechanism moved?</p>
+
+<h2>Use Logs After Matches</h2>
+
+<p>After a match, write down the driver report and compare it to the logs. If
+the driver says the robot turned slowly, check battery voltage, motor commands,
+gyro angle, and drive faults.</p>
+
+<h2>Practice</h2>
+
+<p>Choose one autonomous routine and list the ten values you would want logged
+while testing it.</p>

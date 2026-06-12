@@ -1,0 +1,74 @@
+---
+layout: default
+title: "Lesson 37: Command-Based Programming"
+category: Programming
+tags: [command, based, subsystem, commands, triggers, scheduler]
+summary: Introducing the modern command-based robot structure with subsystems, commands, and triggers.
+previous: 36
+next: 38
+---
+<p>Command-based programming is a modern WPILib pattern for organizing robot
+code. Instead of putting every button check and motor command in one periodic
+method, you split the robot into subsystems and commands.</p>
+
+<p class="important">The exact class names and templates can change between
+seasons. Use this lesson for the idea, and use the current WPILib docs when you
+write the actual project.</p>
+
+<h2>Subsystems</h2>
+
+<p>A subsystem owns one part of the robot. A drive subsystem owns the drive
+motors and sensors. An intake subsystem owns the intake motor. Other code should
+ask a subsystem to do something instead of directly controlling its hardware.</p>
+
+{% highlight java %}
+public class Intake extends SubsystemBase {
+    private final MotorController motor;
+
+    public Intake(MotorController motor) {
+        this.motor = motor;
+    }
+
+    public void run(double speed) {
+        motor.set(speed);
+    }
+
+    public void stop() {
+        motor.set(0.0);
+    }
+}
+{% endhighlight %}
+
+<h2>Commands</h2>
+
+<p>A command describes an action. For example, "run the intake while this button
+is held" or "drive forward until the encoder reaches a target."</p>
+
+{% highlight java %}
+Command runIntake = Commands.startEnd(
+    () -> intake.run(1.0),
+    () -> intake.stop(),
+    intake
+);
+{% endhighlight %}
+
+<h2>Triggers and Buttons</h2>
+
+<p>Buttons schedule commands. This keeps driver controls separate from mechanism
+hardware.</p>
+
+{% highlight java %}
+new JoystickButton(operatorController, 1).whileTrue(runIntake);
+{% endhighlight %}
+
+<h2>Default Commands</h2>
+
+<p>A default command is what a subsystem does when nothing else is using it. A
+drive train usually has a default command that reads joystick input and drives
+the robot.</p>
+
+<h2>Practice</h2>
+
+<p>Choose one mechanism and identify its subsystem, two commands, and the driver
+buttons that should trigger those commands. Then compare your design to the
+official command-based examples in WPILib.</p>

@@ -1,0 +1,52 @@
+---
+layout: default
+title: "Lesson 46: Code Review and Team Workflow"
+category: Programming
+tags: [review, workflow, git, pull, request, team]
+summary: Using branches, pull requests, reviews, and team conventions to keep robot code maintainable.
+previous: 45
+---
+<p>Robot code is team code. Code review and workflow are how a programming team
+keeps one student's quick fix from becoming next week's mystery bug.</p>
+
+<h2>Use Branches</h2>
+
+<p>Create a branch for each feature or fix. A branch gives you a place to work
+without breaking the main robot code.</p>
+
+<pre>git checkout -b intake-state-machine</pre>
+
+<h2>Open Pull Requests</h2>
+
+<p>A pull request shows what changed and gives teammates a chance to ask
+questions before the code is merged. It should explain the goal, the files
+changed, and how the code was tested.</p>
+
+<h2>Review for Robot Bugs</h2>
+
+<p>Good review is not about sounding smart. Look for practical robot risks:</p>
+
+<ul>
+  <li>Can two classes command the same motor?</li>
+  <li>Are port numbers and CAN IDs correct?</li>
+  <li>Does the mechanism stop if a sensor fails?</li>
+  <li>Are constants named clearly?</li>
+  <li>Was the code tested on hardware, sim, or both?</li>
+</ul>
+
+<h2>Write Team Conventions</h2>
+
+<p>Agree on names, folder structure, formatting, and commit habits before build
+season gets intense. Conventions remove small decisions so students can focus on
+the robot.</p>
+
+<h2>Share Knowledge</h2>
+
+<p>If only one person understands a subsystem, the team has a risk. Pair
+program, review code together, and leave notes that help the next student pick
+up the work.</p>
+
+<h2>Practice</h2>
+
+<p>Write a pull request checklist for your team. Keep it short enough that
+students will actually use it before merging code.</p>

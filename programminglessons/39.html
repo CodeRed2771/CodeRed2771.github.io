@@ -1,0 +1,55 @@
+---
+layout: default
+title: "Lesson 39: Robot Project Structure"
+category: Programming
+tags: [project, structure, organization, constants, subsystem, package]
+summary: Organizing a full robot repository so students can find code quickly.
+previous: 38
+next: 40
+---
+<p>A full robot project grows quickly. Project structure is how you keep that
+growth from turning into a pile of mystery files.</p>
+
+<h2>Common Folders and Classes</h2>
+
+<p>Teams organize projects differently, but a readable Java robot project often
+has these ideas:</p>
+
+<ul>
+  <li><code>Robot</code>: the main entry point.</li>
+  <li><code>RobotContainer</code>: creates subsystems, commands, and button bindings.</li>
+  <li><code>subsystems</code>: mechanism classes that own hardware.</li>
+  <li><code>commands</code>: reusable robot actions.</li>
+  <li><code>Constants</code> or <code>Wiring</code>: ports, CAN IDs, and calibration values.</li>
+  <li><code>util</code>: small helpers that do not belong to one subsystem.</li>
+</ul>
+
+<h2>One Owner Per Device</h2>
+
+<p>Each motor, solenoid, or sensor should have one owner. If three classes can
+set the same motor, debugging becomes guesswork. A subsystem should own the
+hardware, and other code should call methods on that subsystem.</p>
+
+<h2>Split Constants by Meaning</h2>
+
+<p>Putting every number in one giant list gets hard to read. Group constants by
+subsystem or by purpose.</p>
+
+{% highlight java %}
+public class DriveConstants {
+    public static final int LEFT_MOTOR_ID = 1;
+    public static final int RIGHT_MOTOR_ID = 2;
+    public static final double MAX_SPEED = 0.8;
+}
+{% endhighlight %}
+
+<h2>Keep Names Boring and Clear</h2>
+
+<p>A good file name should tell a new student what lives inside. Names like
+<code>Shooter</code>, <code>RunIntake</code>, and <code>DriveConstants</code>
+are better than names that only make sense to the original author.</p>
+
+<h2>Practice</h2>
+
+<p>Draw the folder structure for your next robot before writing code. Then write
+down which class owns each motor and sensor.</p>

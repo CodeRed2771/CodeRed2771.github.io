@@ -1,0 +1,51 @@
+---
+layout: default
+title: "Lesson 45: Safety Patterns"
+category: Programming
+tags: [safety, limit, current, timeout, soft, fault]
+summary: Building software safety checks with limits, timeouts, current limits, and sensor validation.
+previous: 44
+next: 46
+---
+<p>Safety patterns are habits that keep mechanisms from hurting people,
+damaging the robot, or destroying themselves when something goes wrong.</p>
+
+<h2>Hard Limits and Soft Limits</h2>
+
+<p>A hard limit is usually a physical sensor such as a limit switch. A soft
+limit is a software boundary such as "do not move past 70 inches." Use both
+when a mechanism can damage itself.</p>
+
+{% highlight java %}
+if (topLimit.get() && requestedSpeed > 0.0) {
+    requestedSpeed = 0.0;
+}
+{% endhighlight %}
+
+<h2>Timeouts</h2>
+
+<p>If a mechanism should finish moving in two seconds, stop it after two
+seconds. A timeout protects the robot when a sensor unplugged or a mechanism got
+stuck.</p>
+
+<h2>Current Limits</h2>
+
+<p>Current limits can protect motors and wiring. They also help detect a stalled
+mechanism. If current is high and the encoder is not moving, something is
+probably wrong.</p>
+
+<h2>Validate Sensors</h2>
+
+<p>Ask whether a sensor value is believable. If an arm angle jumps from 20
+degrees to 900 degrees, the safe answer is not to trust it.</p>
+
+<h2>Fail Safe</h2>
+
+<p>When the robot is confused, choose the safer action: stop the motor, hold
+position gently, or refuse to start the action. Make the fault visible to the
+drivers.</p>
+
+<h2>Practice</h2>
+
+<p>For each mechanism on your robot, write one hard limit, one soft limit, one
+timeout, and one fault message.</p>
