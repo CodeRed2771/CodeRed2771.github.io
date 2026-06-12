@@ -1,19 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Redirected</title>
-    <script>
-        window.location.replace("https://coderedrobotics.com/contact");
-    </script>
-</head>
+---
+title: Contact
+layout: default
+searchable: no
+google_form_url:
+google_form_embed_url:
+---
+<section class="contact-hero">
+  <p class="eyebrow">Get in touch</p>
+  <h2>Questions, fixes, or ideas for the controls guide?</h2>
+  <p>Use whichever contact option is easiest. If you are asking about a lesson,
+  include the lesson number and what you were trying to do so it is easier to
+  help.</p>
+</section>
 
-<body>
-    <noscript>
-        <meta http-equiv="refresh" content="0; url=https://coderedrobotics.com/contact">
-    </noscript>
-    <p>If you are not redirected, <a href="https://coderedrobotics.com/contact">click here</a>.</p>
-</body>
-</html>
+<section class="contact-options" aria-label="Contact options">
+  <article class="contact-card">
+    <h2>Email Directly</h2>
+    <p>Open your email app with a ready-to-edit message.</p>
+    <a class="button primary" href="mailto:Aaron@coderedrobotics.com?subject=Code%20Red%20Controls%20Resources">Email Aaron</a>
+  </article>
+
+  <article class="contact-card">
+    <h2>Use the Google Form</h2>
+    <p>Send a structured message through the guide contact form.</p>
+    <a class="button primary" href="#google-form">Go to form</a>
+  </article>
+
+  <article class="contact-card">
+    <h2>Main Team Contact</h2>
+    <p>Use the official Code Red Robotics contact page for general team questions.</p>
+    <a class="button primary" href="https://coderedrobotics.com/contact">Open team contact page</a>
+  </article>
+</section>
+
+<section id="google-form" class="contact-form-section">
+  <h2>Google Contact Form</h2>
+  {% if page.google_form_embed_url %}
+  <div class="google-form-frame">
+    <iframe src="{{ page.google_form_embed_url }}" title="Code Red controls resources contact form">Loading...</iframe>
+  </div>
+  {% if page.google_form_url %}
+  <p><a href="{{ page.google_form_url }}">Open the form in a new tab</a></p>
+  {% endif %}
+  {% elsif page.google_form_url %}
+  <p>Use the Google Form to send a question, report a broken link, or suggest a
+  new controls topic.</p>
+  <a class="button primary" href="{{ page.google_form_url }}">Open Google Form</a>
+  {% else %}
+  <div class="google-form-placeholder">
+    <h3>Google Form URL Needed</h3>
+    <p>Create a Google Form, choose <b>Send</b>, copy the share link, and paste it
+    into this page's <code>google_form_url</code> field. To embed it directly,
+    copy the embed URL and paste it into <code>google_form_embed_url</code>.</p>
+    <a class="button primary" href="https://forms.new">Create a Google Form</a>
+  </div>
+  {% endif %}
+</section>
