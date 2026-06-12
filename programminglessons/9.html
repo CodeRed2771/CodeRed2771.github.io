@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 9: More about sensor input"
+title: "Lesson 9: More about Digital and Analog Inputs"
 category: "Programming Lessons"
 tags: [analog, input, potentiometer, string, limits, bounds, stop, angle, digital, ultrasonic, accelerometer, pull, up, resistor, pullup, psuedo]
 summary: More detail on analog inputs, and how to use a pull up resistor.
@@ -35,7 +35,11 @@ to digital.  This actually requires a small piece of hardware called a pull up.
 A pull up converts the digital signal from a limit switch into analog, and then
 we need to covert that analog signal back to digital in our code.  </p>
 
-<p>TODO Insert pictures of a pull up, how they work and how to make one.</p>
+<p>A pull-up resistor connects the signal line to a known high voltage when the
+switch is open. When the switch closes, it pulls the signal low. That gives the
+code a clear high or low reading instead of leaving the input floating. The
+exact resistor value and wiring depend on the sensor and breakout board, so ask
+your electrical team before building one.</p>
 
 <p>The Code Red Robot Library provides a
 <code>VirtualizablePsuedoDigitalInput</code> class that represents a digital

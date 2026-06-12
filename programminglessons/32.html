@@ -3,7 +3,61 @@ layout: default
 title: "Lesson 32: Integrating Dead Reckoning with Drive Control"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Combining dead reckoning estimates with drive control and pose tracking.
 previous: 31.html
 next: 33.html
 ---
+<p>Dead reckoning becomes more useful when drive control can use it. Instead of
+only saying "drive forward," code can say "drive toward this estimated position"
+or "hold this heading while moving."</p>
+
+<h2>Store a Pose</h2>
+
+<p>A pose is the robot's estimated position and direction. A simple pose can
+have x, y, and heading.</p>
+
+{% highlight java %}
+public class RobotPose {
+    public double x;
+    public double y;
+    public double headingDegrees;
+}
+{% endhighlight %}
+
+<h2>Update the Pose</h2>
+
+<p>Each cycle, compare the new encoder distance to the previous distance. The
+difference is how far the robot moved since the last update.</p>
+
+{% highlight java %}
+double currentDistance = drive.getAverageDistance();
+double deltaDistance = currentDistance - lastDistance;
+lastDistance = currentDistance;
+
+double heading = Math.toRadians(gyro.getAngle());
+pose.x += deltaDistance * Math.cos(heading);
+pose.y += deltaDistance * Math.sin(heading);
+pose.headingDegrees = gyro.getAngle();
+{% endhighlight %}
+
+<h2>Use Pose for Driving</h2>
+
+<p>Once you estimate pose, you can compare the robot's current position to a
+target position. The difference becomes an error, just like PID control.</p>
+
+{% highlight java %}
+double xError = targetX - pose.x;
+double yError = targetY - pose.y;
+double distanceError = Math.sqrt(xError * xError + yError * yError);
+{% endhighlight %}
+
+<h2>Reset When You Know Better</h2>
+
+<p>If the robot touches a wall, starts a match in a known location, or sees a
+trusted vision target, you can reset the estimate. Good robot code combines
+dead reckoning with real-world reference points whenever possible.</p>
+
+<h2>Practice</h2>
+
+<p>Write pseudocode for an autonomous route that starts at x=0, y=0, drives to
+x=60, y=0, then turns to 90 degrees. Include when you reset encoders and gyro.</p>

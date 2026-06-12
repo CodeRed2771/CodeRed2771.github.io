@@ -3,7 +3,70 @@ layout: default
 title: "Lesson 20: Using Pneumatics"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Controlling single and double solenoids for pneumatic mechanisms.
 previous: 19.html
 next: 21.html
 ---
+<p>Pneumatics use compressed air to move cylinders. They are often used for
+mechanisms that only need two positions: open or closed, up or down, locked or
+unlocked.</p>
+
+<h2>Basic Parts</h2>
+
+<ul>
+  <li>The compressor fills the air system.</li>
+  <li>Storage tanks hold compressed air.</li>
+  <li>Solenoids direct air to cylinders.</li>
+  <li>Cylinders turn air pressure into linear motion.</li>
+  <li>The pressure switch tells the system when to stop the compressor.</li>
+</ul>
+
+<h2>Single Solenoid</h2>
+
+<p>A single solenoid has one controlled output. It is usually set to either on
+or off.</p>
+
+{% highlight java %}
+Solenoid shifter;
+
+public void robotInit() {
+    shifter = new Solenoid(0);
+}
+
+public void teleopPeriodic() {
+    shifter.set(joystick.getRawButton(1));
+}
+{% endhighlight %}
+
+<h2>Double Solenoid</h2>
+
+<p>A double solenoid has two channels. It can move a cylinder forward, reverse,
+or leave it unchanged.</p>
+
+{% highlight java %}
+DoubleSolenoid claw;
+
+public void robotInit() {
+    claw = new DoubleSolenoid(0, 1);
+}
+
+public void teleopPeriodic() {
+    if (joystick.getRawButton(1)) {
+        claw.set(DoubleSolenoid.Value.kForward);
+    } else if (joystick.getRawButton(2)) {
+        claw.set(DoubleSolenoid.Value.kReverse);
+    }
+}
+{% endhighlight %}
+
+<h2>Safety</h2>
+
+<p>Never treat pneumatics as "just software." Cylinders can move quickly and
+with enough force to pinch fingers or damage mechanisms. Test with the robot
+disabled and communicate with the mechanical team before enabling a new
+pneumatic action.</p>
+
+<h2>Practice</h2>
+
+<p>Write a small state machine for a claw with two states: open and closed. Use
+buttons to request the states, and use a solenoid value to move the cylinder.</p>

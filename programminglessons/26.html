@@ -3,7 +3,51 @@ layout: default
 title: "Lesson 26: Camera Processing"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: A high-level introduction to camera pipelines and robot vision values.
 previous: 25.html
 next: 27.html
 ---
+<p>Camera processing lets the robot use images to make decisions. Common FRC
+uses include finding reflective tape, estimating alignment, and helping drivers
+see parts of the field.</p>
+
+<h2>Driver Camera Versus Vision Processing</h2>
+
+<p>A driver camera sends video to the driver. Vision processing turns an image
+into numbers the robot can use. Those are different goals, and they may use
+different cameras or settings.</p>
+
+<h2>The Basic Pipeline</h2>
+
+<ol>
+  <li>Capture an image from the camera.</li>
+  <li>Filter the image to find the target color or brightness.</li>
+  <li>Find shapes or contours in the filtered image.</li>
+  <li>Choose the contour that is most likely to be the target.</li>
+  <li>Return a simple number, such as horizontal offset from center.</li>
+</ol>
+
+<h2>Keep Robot Code Simple</h2>
+
+<p>Do not make the drive code depend on a whole image. The drive code usually
+only needs a few values: whether a target exists, how far left or right it is,
+and maybe how large it appears.</p>
+
+{% highlight java %}
+if (visionHasTarget) {
+    double correction = visionXOffset * 0.02;
+    leftMotor.set(-correction);
+    rightMotor.set(correction);
+}
+{% endhighlight %}
+
+<h2>Lighting and Testing</h2>
+
+<p>Vision code that works in the shop may fail on the field. Lighting changes,
+camera exposure changes, and other robots can appear in the image. Test in as
+many real conditions as you can.</p>
+
+<h2>Practice</h2>
+
+<p>Write down the three numbers your robot would need from a vision system for
+an aiming task. Then decide what your robot should do when no target is found.</p>

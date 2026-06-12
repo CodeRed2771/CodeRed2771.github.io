@@ -3,7 +3,61 @@ layout: default
 title: "Lesson 19: Using the Gyro"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Reading gyro angle and using heading feedback to drive straighter.
 previous: 18.html
 next: 20.html
 ---
+<p>A gyro measures rotation. On an FRC robot, it is most often used to know the
+robot's heading so you can drive straight, turn to an angle, or make field
+oriented controls.</p>
+
+<h2>Angle Versus Rate</h2>
+
+<p>Gyros can tell you two related things: how fast the robot is rotating and how
+far it has rotated from a starting point. Most robot code uses the angle.</p>
+
+{% highlight java %}
+Gyro gyro;
+
+public void robotInit() {
+    gyro = new AnalogGyro(0);
+    gyro.reset();
+}
+
+public void teleopPeriodic() {
+    System.out.println("Angle: " + gyro.getAngle());
+}
+{% endhighlight %}
+
+<p>The exact gyro class depends on the hardware your team uses. The idea is the
+same: create the gyro object, calibrate or reset it, then read the heading.</p>
+
+<h2>Resetting</h2>
+
+<p>Resetting the gyro makes the current robot direction equal zero degrees. Do
+this when the robot is still and pointed in a direction that your code can treat
+as the starting angle.</p>
+
+<h2>Driving Straight</h2>
+
+<p>A simple use of a gyro is to correct drift while driving. If the robot is
+turning right when it should drive straight, add a small correction to the left
+and right motor speeds.</p>
+
+{% highlight java %}
+double targetAngle = 0.0;
+double error = targetAngle - gyro.getAngle();
+double correction = error * 0.03;
+
+leftMotor.set(speed - correction);
+rightMotor.set(speed + correction);
+{% endhighlight %}
+
+<p>This is a tiny preview of PID control, which comes later. The important idea
+is that sensors let the robot compare what it is doing to what you wanted.</p>
+
+<h2>Practice</h2>
+
+<p>Print the gyro angle, rotate the robot by hand, and confirm that the number
+changes in the direction you expect. Then write down which direction is positive
+for your robot.</p>

@@ -3,7 +3,53 @@ layout: default
 title: "Lesson 34: Virtualization Technology"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Virtualizing inputs and outputs so hardware details stay isolated.
 previous: 33.html
 next: 35.html
 ---
+<p>Virtualization means putting a layer between the rest of your code and the
+physical hardware. Instead of every class knowing exact ports and sensor quirks,
+the robot code talks to named objects with clear behavior.</p>
+
+<h2>Virtual Inputs</h2>
+
+<p>A virtual input hides how the value is measured. For example, an arm position
+could come from a potentiometer, encoder, or simulated value. The rest of the
+arm code only asks for the current position.</p>
+
+{% highlight java %}
+public interface ArmPositionSensor {
+    double getAngle();
+}
+{% endhighlight %}
+
+<h2>Virtual Outputs</h2>
+
+<p>A virtual output hides how the robot performs an action. A claw might use a
+single solenoid one year and a motor the next. The rest of the code can still
+call <code>open()</code> and <code>close()</code>.</p>
+
+{% highlight java %}
+public interface Claw {
+    void open();
+    void close();
+}
+{% endhighlight %}
+
+<h2>Why This Is Useful</h2>
+
+<p>Virtualization makes testing easier, keeps hardware details isolated, and
+lets you change mechanisms without rewriting the whole project. It also helps
+students reason about what a subsystem does instead of where every wire goes.</p>
+
+<h2>Do Not Overdo It</h2>
+
+<p>Too many layers can make simple code hard to follow. Virtualize when it makes
+the code clearer or safer. If a wrapper only hides one obvious line, it may not
+be worth adding.</p>
+
+<h2>Practice</h2>
+
+<p>Choose a sensor on your robot and design a small interface for it. The
+interface should use units that make sense to the mechanism, such as inches,
+degrees, or pressed/not pressed.</p>

@@ -3,7 +3,53 @@ layout: default
 title: "Lesson 21: Threading"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Understanding when threads help robot code and why they should be used carefully.
 previous: 20.html
 next: 22.html
 ---
+<p>A thread is a separate path of execution in a program. Threads can be useful,
+but they also make robot code easier to break. Most beginner FRC code should
+avoid creating extra threads unless there is a clear reason.</p>
+
+<h2>Why Threads Are Tricky</h2>
+
+<p>Robot code already runs repeatedly through methods like
+<code>teleopPeriodic()</code>. If you start another thread, two parts of your
+program may try to read or write the same variable at the same time. That can
+create bugs that are hard to reproduce.</p>
+
+<h2>Use Periodic Patterns First</h2>
+
+<p>Before using a thread, ask whether a timer and a state variable can solve the
+problem. Most robot actions can be handled by checking state every periodic
+cycle.</p>
+
+{% highlight java %}
+if (collecting) {
+    intakeMotor.set(1.0);
+} else {
+    intakeMotor.set(0.0);
+}
+{% endhighlight %}
+
+<h2>When Threads Can Help</h2>
+
+<p>Threads can be useful for work that is slow or independent, such as some
+vision processing tasks. If you use one, keep the shared information simple.
+For example, a vision thread might calculate one number and the main robot code
+only reads that number.</p>
+
+<h2>Protect Shared Data</h2>
+
+<p>If two threads use the same data, you need a plan for keeping that data safe.
+At minimum, understand which thread writes the value and which thread reads it.
+Do not have multiple threads commanding the same motor.</p>
+
+<p class="important">Only one part of your code should be responsible for each
+motor or mechanism. Threads should not fight over hardware outputs.</p>
+
+<h2>Practice</h2>
+
+<p>Look at one mechanism class and identify who owns each motor. If more than
+one class can command the same motor directly, refactor so the mechanism owns
+the motor and other code requests actions from the mechanism.</p>

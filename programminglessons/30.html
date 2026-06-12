@@ -3,7 +3,56 @@ layout: default
 title: "Lesson 30: Hardware Fail Detection"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Detecting likely hardware failures with sensor ranges, timeouts, and movement checks.
 previous: 29.html
 next: 31.html
 ---
+<p>Hardware fail detection means writing code that notices when something is
+probably wrong. It will not replace inspection and maintenance, but it can help
+drivers and pit crew react faster.</p>
+
+<h2>What Can Fail?</h2>
+
+<ul>
+  <li>A sensor can unplug or return impossible values.</li>
+  <li>A motor can be commanded but not move.</li>
+  <li>An encoder can stop counting.</li>
+  <li>A mechanism can hit a hard stop before the code expects it.</li>
+  <li>Pneumatics can lose pressure or fail to move a cylinder.</li>
+</ul>
+
+<h2>Detect Impossible Values</h2>
+
+<p>If an arm angle should always be between 0 and 180 degrees, values outside
+that range probably mean a sensor problem.</p>
+
+{% highlight java %}
+double angle = armPot.get();
+boolean sensorOk = angle >= 0.0 && angle <= 180.0;
+
+if (!sensorOk) {
+    armMotor.set(0.0);
+}
+{% endhighlight %}
+
+<h2>Detect No Movement</h2>
+
+<p>If a motor is commanded for a long time but the encoder does not change, stop
+and report a fault.</p>
+
+{% highlight java %}
+if (Math.abs(motorCommand) > 0.4 && Math.abs(encoderRate) < 0.1) {
+    driveFault = true;
+}
+{% endhighlight %}
+
+<h2>Report Clearly</h2>
+
+<p>A hidden fault does not help the team. Show faults on a dashboard, LEDs, or
+driver station output. Use plain names like "left encoder not moving" instead
+of "fault 4."</p>
+
+<h2>Practice</h2>
+
+<p>Choose one mechanism and write three checks: one impossible sensor value, one
+timeout, and one "commanded but not moving" condition.</p>

@@ -3,7 +3,56 @@ layout: default
 title: "Lesson 33: DriveMux"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Using a DriveMux pattern to decide which code controls the drive train.
 previous: 32.html
 next: 34.html
 ---
+<p>DriveMux is short for drive multiplexer. It is a pattern for deciding which
+part of the robot code is allowed to control the drive train at a given moment.</p>
+
+<h2>The Problem</h2>
+
+<p>Many parts of the robot may want to drive: joystick code, autonomous code,
+vision alignment, heading hold, or a safety stop. If they all set motor speeds
+directly, the last command wins and the behavior becomes confusing.</p>
+
+<h2>The DriveMux Idea</h2>
+
+<p>Instead of letting everything talk to the motors, everything sends drive
+requests to one place. The DriveMux chooses the active request and sends one
+final command to the drive train.</p>
+
+{% highlight java %}
+public class DriveRequest {
+    public double left;
+    public double right;
+    public int priority;
+}
+{% endhighlight %}
+
+<h2>Priorities</h2>
+
+<p>Some requests should override others. A safety stop should beat driver input.
+Vision alignment might temporarily beat normal arcade drive. Normal joystick
+drive might be the default when nothing else is active.</p>
+
+{% highlight java %}
+if (safetyStopActive) {
+    drive.tankDrive(0.0, 0.0);
+} else if (visionAlignActive) {
+    drive.tankDrive(visionLeft, visionRight);
+} else {
+    drive.tankDrive(driverLeft, driverRight);
+}
+{% endhighlight %}
+
+<h2>Why This Helps</h2>
+
+<p>A DriveMux makes ownership clear. The drive train receives one command per
+cycle, and you can debug why that command was chosen. That is much easier than
+searching the project for every place that sets the same motors.</p>
+
+<h2>Practice</h2>
+
+<p>List every feature on your robot that wants to control the drive train. Sort
+them from highest priority to lowest priority.</p>

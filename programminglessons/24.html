@@ -3,7 +3,69 @@ layout: default
 title: "Lesson 24: Applying PID Controllers to the Drive Train"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Applying encoder and gyro feedback to drive distances and turn angles.
 previous: 23.html
 next: 25.html
 ---
+<p>Drive trains are one of the best places to use feedback. Encoders can help
+the robot drive a distance, and a gyro can help it drive straight or turn to an
+angle.</p>
+
+<h2>Driving a Distance</h2>
+
+<p>To drive a distance, compare the target distance to the encoder distance.
+That gives you an error. A proportional controller turns that error into motor
+output.</p>
+
+{% highlight java %}
+double targetDistance = 60.0;
+double currentDistance = leftEncoder.getDistance();
+double error = targetDistance - currentDistance;
+double speed = error * 0.04;
+{% endhighlight %}
+
+<p>Clamp the speed so the robot does not jump to full power.</p>
+
+{% highlight java %}
+speed = Math.max(-0.6, Math.min(0.6, speed));
+leftMotor.set(speed);
+rightMotor.set(speed);
+{% endhighlight %}
+
+<h2>Driving Straight</h2>
+
+<p>Even if both sides receive the same speed, a robot may drift. Use the gyro to
+add a turn correction.</p>
+
+{% highlight java %}
+double angleError = 0.0 - gyro.getAngle();
+double correction = angleError * 0.03;
+
+leftMotor.set(speed - correction);
+rightMotor.set(speed + correction);
+{% endhighlight %}
+
+<h2>Turning to an Angle</h2>
+
+<p>Turning is similar, but the gyro error becomes the main value.</p>
+
+{% highlight java %}
+double targetAngle = 90.0;
+double turnError = targetAngle - gyro.getAngle();
+double turnSpeed = turnError * 0.025;
+
+leftMotor.set(-turnSpeed);
+rightMotor.set(turnSpeed);
+{% endhighlight %}
+
+<h2>Know When You Are Done</h2>
+
+<p>A controller needs an exit condition. For example, stop when the error is
+small enough for several cycles, or stop when a timeout is reached. Never assume
+the robot will always reach the target perfectly.</p>
+
+<h2>Practice</h2>
+
+<p>Write pseudocode for autonomous: reset sensors, drive 72 inches while holding
+zero degrees, stop, then turn to 90 degrees. Include the error calculation for
+each step.</p>

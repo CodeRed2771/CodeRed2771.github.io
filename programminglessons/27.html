@@ -3,7 +3,50 @@ layout: default
 title: "Lesson 27: Awesome LEDs!"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Using LEDs to communicate robot state, readiness, and faults.
 previous: 26.html
 next: 28.html
 ---
+<p>LEDs are useful because they let the robot communicate. They can show driver
+feedback, mechanism state, enabled status, target lock, or warnings without
+opening a dashboard.</p>
+
+<h2>Use LEDs for Information</h2>
+
+<p>Pretty lights are fun, but the best LED patterns help the team understand the
+robot faster.</p>
+
+<ul>
+  <li>Green: ready to shoot.</li>
+  <li>Red: sensor fault or unsafe state.</li>
+  <li>Blue: target found.</li>
+  <li>Yellow: waiting for calibration.</li>
+  <li>Flashing: driver action needed.</li>
+</ul>
+
+<h2>Represent LED State in Code</h2>
+
+{% highlight java %}
+enum LedState {
+    DISABLED,
+    READY,
+    HAS_TARGET,
+    ERROR
+}
+
+LedState ledState = LedState.DISABLED;
+{% endhighlight %}
+
+<p>Mechanisms can request LED states, and one LED class can decide what pattern
+to display.</p>
+
+<h2>Avoid Conflicting Messages</h2>
+
+<p>If every subsystem sets LEDs directly, the last one to run wins. Instead,
+decide which messages are most important. Errors might override target lock,
+and target lock might override normal enabled color.</p>
+
+<h2>Practice</h2>
+
+<p>Design an LED priority list for a shooter robot. Include at least four
+messages and decide which one wins if two are true at the same time.</p>

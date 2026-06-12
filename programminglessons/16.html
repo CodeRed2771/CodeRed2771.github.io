@@ -3,7 +3,68 @@ layout: default
 title: "Lesson 16: Applications of States"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Applying state machines to intakes, arms, and sensor-driven mechanisms.
 previous: 15.html
 next: 17.html
 ---
+<p>In the last lesson, you learned what state is. This lesson shows where state
+becomes useful on a real robot.</p>
+
+<h2>Example: Intake</h2>
+
+<p>An intake usually has a few simple states: stopped, intaking, and ejecting.
+Those states make the code easier to read than scattered motor commands.</p>
+
+{% highlight java %}
+enum IntakeState {
+    STOPPED,
+    INTAKING,
+    EJECTING
+}
+
+IntakeState intakeState = IntakeState.STOPPED;
+
+public void teleopPeriodic() {
+    if (joystick.getRawButton(1)) {
+        intakeState = IntakeState.INTAKING;
+    } else if (joystick.getRawButton(2)) {
+        intakeState = IntakeState.EJECTING;
+    } else {
+        intakeState = IntakeState.STOPPED;
+    }
+
+    if (intakeState == IntakeState.INTAKING) {
+        intakeMotor.set(1.0);
+    } else if (intakeState == IntakeState.EJECTING) {
+        intakeMotor.set(-1.0);
+    } else {
+        intakeMotor.set(0.0);
+    }
+}
+{% endhighlight %}
+
+<h2>Example: Arm With Limits</h2>
+
+<p>State becomes even more useful when sensors are involved. An arm might move
+up until a top limit switch is pressed, then switch to holding.</p>
+
+{% highlight java %}
+if (armState == ArmState.MOVING_UP && topLimit.get()) {
+    armState = ArmState.HOLDING;
+}
+{% endhighlight %}
+
+<p>This makes the sensor part of the mechanism behavior. The driver asks for an
+action, but the mechanism decides when that action is safe or finished.</p>
+
+<h2>Commands Versus States</h2>
+
+<p>A command is an instruction: "move up." A state is the robot's current mode:
+"moving up." Keeping those ideas separate helps avoid bugs. Buttons should
+request changes. Mechanism code should decide what the motors actually do.</p>
+
+<h2>Practice</h2>
+
+<p>Write states for a shooter, intake, elevator, or climber. For each state,
+write one sentence explaining what the motors should do and what sensor could
+cause the state to change.</p>

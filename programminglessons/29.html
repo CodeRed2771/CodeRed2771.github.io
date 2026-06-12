@@ -3,7 +3,56 @@ layout: default
 title: "Lesson 29: Modifying WPI Libraries / Building Wrappers"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Creating wrappers around library classes to make hardware safer and clearer.
 previous: 28.html
 next: 30.html
 ---
+<p>Sometimes the library class you are given is not quite the interface you want
+for your robot. A wrapper is a class that surrounds another class and gives the
+rest of your code a cleaner way to use it.</p>
+
+<h2>Why Wrap?</h2>
+
+<p>Wrappers can make code easier to read, hide repeated setup, enforce safety
+limits, and let you swap hardware without changing every file.</p>
+
+{% highlight java %}
+public class SafeMotor {
+    private SpeedController motor;
+    private boolean inverted;
+
+    public SafeMotor(SpeedController motor, boolean inverted) {
+        this.motor = motor;
+        this.inverted = inverted;
+    }
+
+    public void set(double speed) {
+        if (speed > 1.0) {
+            speed = 1.0;
+        } else if (speed < -1.0) {
+            speed = -1.0;
+        }
+
+        motor.set(inverted ? -speed : speed);
+    }
+}
+{% endhighlight %}
+
+<h2>Do Not Hide Too Much</h2>
+
+<p>A wrapper should make a common task clearer. It should not make the hardware
+impossible to understand. If a new student cannot tell what object is being
+controlled, the wrapper may be too clever.</p>
+
+<h2>Prefer Small Interfaces</h2>
+
+<p>Expose what the robot actually needs. A drive class might have
+<code>tankDrive()</code>, <code>stop()</code>, and
+<code>getAverageDistance()</code>. Other code does not need direct access to
+every motor method.</p>
+
+<h2>Practice</h2>
+
+<p>Write a wrapper around a limit switch that has a method called
+<code>isPressed()</code>. If your switch wiring returns false when pressed, hide
+that inversion inside the wrapper.</p>

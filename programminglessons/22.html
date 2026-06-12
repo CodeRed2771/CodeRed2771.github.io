@@ -3,7 +3,65 @@ layout: default
 title: "Lesson 22: PID Controllers"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Introducing PID control, error, output clamping, and basic tuning.
 previous: 21.html
 next: 23.html
 ---
+<p>PID control is a way to make the robot move toward a target using sensor
+feedback. Instead of guessing a motor speed and hoping the mechanism lands in
+the right place, PID compares the current value to the goal and adjusts the
+output.</p>
+
+<h2>The Error</h2>
+
+<p>The most important number in any controller is the error.</p>
+
+<pre>error = target - current</pre>
+
+<p>If an elevator target is 50 inches and the encoder says it is at 40 inches,
+the error is 10 inches. If it is at 52 inches, the error is -2 inches.</p>
+
+<h2>P, I, and D</h2>
+
+<ul>
+  <li><b>P</b> responds to the current error.</li>
+  <li><b>I</b> responds to error that has built up over time.</li>
+  <li><b>D</b> responds to how quickly the error is changing.</li>
+</ul>
+
+<p>Many FRC mechanisms can start with only P. Add I and D only when you
+understand what problem you are trying to solve.</p>
+
+{% highlight java %}
+double target = 90.0;
+double current = armPot.get();
+double error = target - current;
+double output = error * 0.03;
+
+armMotor.set(output);
+{% endhighlight %}
+
+<h2>Clamp the Output</h2>
+
+<p>A controller can ask for too much power. Limit the output so the mechanism
+stays safe.</p>
+
+{% highlight java %}
+if (output > 0.5) {
+    output = 0.5;
+} else if (output < -0.5) {
+    output = -0.5;
+}
+{% endhighlight %}
+
+<h2>Tuning</h2>
+
+<p>Start with all constants at zero. Increase P slowly until the mechanism moves
+toward the target. If it oscillates, P is probably too high. Add small changes
+and test carefully.</p>
+
+<h2>Practice</h2>
+
+<p>Pick a sensor value and a target. Calculate the error by hand for three
+different current readings. Then decide which direction the motor should move
+for each error.</p>

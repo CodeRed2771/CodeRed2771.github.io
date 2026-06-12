@@ -3,7 +3,74 @@ layout: default
 title: "Lesson 25: Advanced Joystick Management"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Naming controls, adding deadbands, and handling toggle buttons.
 previous: 24.html
 next: 26.html
 ---
+<p>As robots get more complex, joystick code can become messy. Advanced joystick
+management means turning raw buttons and axes into clear driver commands.</p>
+
+<h2>Name Your Controls</h2>
+
+<p>Raw button numbers are hard to read. Give important controls names.</p>
+
+{% highlight java %}
+public class Controls {
+    public static final int INTAKE_BUTTON = 1;
+    public static final int EJECT_BUTTON = 2;
+    public static final int SHIFT_BUTTON = 5;
+}
+{% endhighlight %}
+
+<p>Now the code says what the button means instead of only where it is.</p>
+
+{% highlight java %}
+if (driver.getRawButton(Controls.INTAKE_BUTTON)) {
+    intakeState = IntakeState.INTAKING;
+}
+{% endhighlight %}
+
+<h2>Deadbands</h2>
+
+<p>Joystick axes are rarely exactly zero. A deadband ignores tiny values so the
+robot does not drift.</p>
+
+{% highlight java %}
+public double deadband(double value) {
+    if (Math.abs(value) < 0.08) {
+        return 0.0;
+    }
+    return value;
+}
+{% endhighlight %}
+
+<h2>Toggle Buttons</h2>
+
+<p>Sometimes one button press should toggle a state. To do that, detect the
+moment the button changes from not pressed to pressed.</p>
+
+{% highlight java %}
+boolean lastShiftButton = false;
+boolean highGear = false;
+
+public void teleopPeriodic() {
+    boolean shiftButton = driver.getRawButton(Controls.SHIFT_BUTTON);
+
+    if (shiftButton && !lastShiftButton) {
+        highGear = !highGear;
+    }
+
+    lastShiftButton = shiftButton;
+}
+{% endhighlight %}
+
+<h2>Driver Versus Operator</h2>
+
+<p>Many teams use two controllers: one for driving and one for mechanisms. Keep
+their responsibilities clear. The driver should not need to remember every
+mechanism button while lining up a robot.</p>
+
+<h2>Practice</h2>
+
+<p>Create a controls map for a robot with drive, intake, shooter, and climber.
+Then mark which controls belong to the driver and which belong to the operator.</p>

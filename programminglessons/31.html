@@ -3,7 +3,50 @@ layout: default
 title: "Lesson 31: Dead Reckoning"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Estimating robot position with encoders, gyro heading, and dead reckoning.
 previous: 30.html
 next: 32.html
 ---
+<p>Dead reckoning is estimating where the robot is by using its own movement
+sensors. If you know where the robot started and you measure how far it has
+moved, you can estimate where it is now.</p>
+
+<h2>The Basic Idea</h2>
+
+<p>Imagine the robot starts at position zero. If the encoders say the robot has
+driven forward 48 inches, your estimated position is 48 inches forward. If the
+gyro says the robot turned 90 degrees, future forward movement should be counted
+in that new direction.</p>
+
+<h2>Why It Is Only an Estimate</h2>
+
+<p>Dead reckoning drifts. Wheels slip, robots get bumped, carpet changes, and
+sensors have noise. The estimate is still useful, but it should not be treated
+as perfect truth.</p>
+
+<h2>Tracking Distance</h2>
+
+<p>For a simple tank drive, average the left and right encoder distances to
+estimate forward movement.</p>
+
+{% highlight java %}
+double leftDistance = leftEncoder.getDistance();
+double rightDistance = rightEncoder.getDistance();
+double averageDistance = (leftDistance + rightDistance) / 2.0;
+{% endhighlight %}
+
+<h2>Tracking Heading</h2>
+
+<p>The gyro gives the robot heading. Distance tells you how far the robot moved;
+heading tells you which direction it was facing while it moved.</p>
+
+{% highlight java %}
+double headingDegrees = gyro.getAngle();
+double headingRadians = Math.toRadians(headingDegrees);
+{% endhighlight %}
+
+<h2>Practice</h2>
+
+<p>Draw a robot on graph paper. Move it forward 24 inches, turn 90 degrees, then
+move forward 24 more inches. Mark the final estimated position. That drawing is
+the same idea dead reckoning uses in code.</p>

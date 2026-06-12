@@ -3,7 +3,62 @@ layout: default
 title: "Lesson 17: Timing"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Using timers and timeouts without blocking periodic robot code.
 previous: 16.html
 next: 18.html
 ---
+<p>Timing is important because robot code runs many times per second. If you
+want something to happen for half a second, happen once, or stop after a
+timeout, you need to think carefully about time.</p>
+
+<h2>Do Not Pause the Robot</h2>
+
+<p>A common beginner mistake is to use a sleep or delay inside periodic robot
+code. That stops the rest of your code from running, which means sensors,
+driver input, and safety checks may not update when you need them.</p>
+
+<p class="important">Avoid blocking delays in periodic code. Store a start time
+and keep checking whether enough time has passed.</p>
+
+<h2>Using a Timer</h2>
+
+<p>The pattern is simple: reset a timer when an action starts, then check the
+timer each cycle.</p>
+
+{% highlight java %}
+Timer timer = new Timer();
+boolean shooting = false;
+
+public void robotInit() {
+    timer.start();
+}
+
+public void teleopPeriodic() {
+    if (joystick.getRawButton(1) && !shooting) {
+        shooting = true;
+        timer.reset();
+    }
+
+    if (shooting) {
+        shooterMotor.set(1.0);
+
+        if (timer.get() > 0.75) {
+            shooting = false;
+            shooterMotor.set(0.0);
+        }
+    }
+}
+{% endhighlight %}
+
+<h2>Timeouts</h2>
+
+<p>Timeouts are safety nets. If an elevator should hit a limit switch in two
+seconds, stop it if it takes longer than that. A timeout will not fix bad
+mechanical design, but it can prevent a stalled motor from burning itself up
+while you debug.</p>
+
+<h2>Practice</h2>
+
+<p>Write code for an intake that runs for one second after a button press. Then
+add a second condition that stops early if a sensor says a game piece has been
+captured.</p>

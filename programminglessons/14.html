@@ -3,7 +3,70 @@ layout: default
 title: "Lesson 14: Debugging Robot Code"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: How to debug robot code with clear symptoms, useful prints, and one change at a time.
 previous: 13.html
 next: 15.html
 ---
+<p>Debugging is the process of finding out why the robot is not doing what you
+expected. Good programmers are not people who never make mistakes. Good
+programmers are people who can slow down, collect evidence, and make one useful
+change at a time.</p>
+
+<h2>Start With the Symptom</h2>
+
+<p>Before changing code, describe the problem as specifically as you can. "The
+arm is broken" is not specific. "The arm motor moves down but never moves up
+when button 5 is pressed" is specific enough to investigate.</p>
+
+<ul>
+  <li>What did you expect the robot to do?</li>
+  <li>What did it actually do?</li>
+  <li>Does it happen every time?</li>
+  <li>What changed since the last time it worked?</li>
+</ul>
+
+<h2>Use Prints Carefully</h2>
+
+<p>A simple way to inspect your code is to print values while the robot runs.
+Print the joystick value, button value, sensor value, or state variable that
+decides what the robot should do.</p>
+
+{% highlight java %}
+public void teleopPeriodic() {
+    double speed = joystick.getY();
+    System.out.println("Drive speed: " + speed);
+    leftMotor.set(speed);
+    rightMotor.set(speed);
+}
+{% endhighlight %}
+
+<p>Do not leave dozens of prints running forever. Too much output makes it hard
+to see the useful information. Add a print, learn from it, then remove it or
+turn it into a real dashboard value.</p>
+
+<h2>Check Hardware and Wiring</h2>
+
+<p>Software is not always the problem. Before rewriting a class, check the simple
+things:</p>
+
+<ul>
+  <li>Is the motor controller powered?</li>
+  <li>Is the PWM, CAN, or sensor cable in the expected port?</li>
+  <li>Does the port number in <code>Wiring</code> match the robot?</li>
+  <li>Is the joystick plugged into the expected driver station slot?</li>
+  <li>Is a limit switch stuck or wired backwards?</li>
+</ul>
+
+<h2>Change One Thing</h2>
+
+<p>The fastest way to get lost is to change five things and then test. If the
+robot works, you do not know which change fixed it. If it still fails, you do
+not know which change made it worse. Make one change, test, and write down what
+happened.</p>
+
+<h2>Practice</h2>
+
+<p>Create a small bug on purpose: invert one joystick axis or use the wrong
+button number. Then use print statements and wiring checks to prove where the
+bug is. Practicing debugging when you are calm makes it much easier during a
+match timeout.</p>

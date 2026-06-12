@@ -3,7 +3,50 @@ layout: default
 title: "Lesson 35: Custom Dashboards"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Designing dashboards that show useful robot state without overwhelming drivers.
 previous: 34.html
 next: 36.html
 ---
+<p>A dashboard gives drivers and programmers information about the robot while
+it runs. A good dashboard helps you make decisions quickly. A bad dashboard is
+just a wall of numbers.</p>
+
+<h2>What To Show</h2>
+
+<p>Show values that help someone act:</p>
+
+<ul>
+  <li>Sensor readings for mechanisms being tested.</li>
+  <li>Current robot state or autonomous step.</li>
+  <li>Fault messages that need attention.</li>
+  <li>Vision target status.</li>
+  <li>Battery voltage or pressure when relevant.</li>
+</ul>
+
+<h2>Use Clear Names</h2>
+
+<p>Dashboard labels should make sense to the person reading them. "Arm angle"
+is better than "pot 0." "Shooter ready" is better than "flag 3."</p>
+
+{% highlight java %}
+SmartDashboard.putNumber("Arm Angle", armAngle);
+SmartDashboard.putBoolean("Shooter Ready", shooterReady);
+SmartDashboard.putString("Robot State", robotState.toString());
+{% endhighlight %}
+
+<h2>Do Not Depend on the Dashboard</h2>
+
+<p>The robot should still be safe if the dashboard is closed or disconnected.
+Use the dashboard for visibility and tuning, not as the only thing preventing a
+mechanism from damaging itself.</p>
+
+<h2>Driver View Versus Debug View</h2>
+
+<p>Drivers need a small number of high-signal items. Programmers may need many
+debug values during testing. Keep those views separate when possible so the
+drive team is not distracted.</p>
+
+<h2>Practice</h2>
+
+<p>Create a dashboard plan for one mechanism. Pick three values for programmers
+and one message for drivers.</p>

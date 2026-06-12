@@ -3,7 +3,40 @@ layout: default
 title: "Lesson 23: Recap"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: A recap of lessons 14 through 22 with a subsystem practice project.
 previous: 22.html
 next: 24.html
 ---
+<p>This recap covers the second group of lessons: debugging, state, timing,
+encoders, gyros, pneumatics, threading, and PID control.</p>
+
+<h2>You Should Be Able To</h2>
+
+<ul>
+  <li>Describe a robot bug clearly before changing code.</li>
+  <li>Use print statements or dashboard values to inspect important variables.</li>
+  <li>Create state variables for a mechanism.</li>
+  <li>Use calibration constants instead of magic numbers.</li>
+  <li>Use timers without blocking the robot loop.</li>
+  <li>Read an encoder and convert counts into distance.</li>
+  <li>Read a gyro angle and use it as feedback.</li>
+  <li>Command single and double solenoids.</li>
+  <li>Explain why extra threads should be used carefully.</li>
+  <li>Calculate PID error and write a simple proportional controller.</li>
+</ul>
+
+<h2>Practice Project</h2>
+
+<p>Design a small elevator in code. You do not need real hardware for the design.
+Write the classes and variables you would use.</p>
+
+<ol>
+  <li>Create states for idle, moving up, moving down, and holding.</li>
+  <li>Add calibration values for motor speeds and maximum safe height.</li>
+  <li>Add an encoder value for position.</li>
+  <li>Add a timeout for movement.</li>
+  <li>Add a proportional controller that moves toward a target height.</li>
+</ol>
+
+<p>If you can explain how those pieces fit together, you are ready to apply
+feedback control to drive trains.</p>

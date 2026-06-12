@@ -3,7 +3,77 @@ layout: default
 title: "Lesson 1: Setting Up the Environment"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Installing the tools needed to build Java robot projects.
 previous: gettingstarted.html
 next: 2.html
 ---
+<p>Before writing robot code, you need a working development environment. This
+lesson is about getting the basic tools installed and making sure your computer
+can create, build, and deploy Java robot projects.</p>
+
+<p class="important">This guide was written around the Java/WPILib workflow used
+by Code Red at the time. WPILib changes over time, so always use the current
+WPILib installer and documentation for your season.</p>
+
+<h2>What You Need</h2>
+
+<ul>
+  <li>A laptop that you can use at meetings and competitions.</li>
+  <li>The current WPILib tools for Java development.</li>
+  <li>Git, so you can work with team code and keep changes organized.</li>
+  <li>A way to connect to the roboRIO, usually USB, Ethernet, or robot radio.</li>
+</ul>
+
+<p>Older FRC Java workflows used Eclipse. Newer WPILib workflows use VS Code and
+the WPILib extension. The ideas in these lessons still transfer: you will create
+a robot project, write Java classes, build the project, and deploy it to the
+robot.</p>
+
+<h2>Install WPILib</h2>
+
+<p>Download and run the WPILib installer for the current season. Install the Java
+tools and the offline documentation. If the installer asks whether to install
+VS Code, say yes unless your team has a different standard setup.</p>
+
+<p>After installation, open the editor and look for the WPILib commands. In VS
+Code, the command palette is where you create projects, build robot code, deploy
+to the robot, and simulate some code locally.</p>
+
+<h2>Install Git</h2>
+
+<p>Git lets multiple programmers work on the same robot code without passing
+folders around on flash drives. Install Git from the official Git website, then
+open a terminal and check that it works:</p>
+
+<pre>git --version</pre>
+
+<p>You do not need to understand every Git command yet. Lesson 13 covers the
+workflow. For now, you only need Git installed.</p>
+
+<h2>Know Your Project Folder</h2>
+
+<p>Create a folder for robot projects somewhere easy to find. Do not put your
+project inside a random downloads folder. A clean location makes it easier to
+clone repositories, find build files, and help another student debug a problem.</p>
+
+<h2>Build Before You Deploy</h2>
+
+<p>Once your tools are installed, create a sample robot project and build it. A
+successful build proves that Java, WPILib, and the project structure are working.
+Deploying comes later, after you understand the project layout.</p>
+
+<p class="tip"><b>Team habit:</b> When something fails, write down the exact error
+message before changing things. "It broke" is hard to debug. "The build cannot
+find WPILibJ" gives you somewhere to start.</p>
+
+<h2>Practice</h2>
+
+<ol>
+  <li>Install the current WPILib tools.</li>
+  <li>Install Git and run <code>git --version</code>.</li>
+  <li>Create a new Java robot project.</li>
+  <li>Build the project without changing any code.</li>
+</ol>
+
+<p>If all four steps work, you are ready to create your first robot project in
+the next lesson.</p>

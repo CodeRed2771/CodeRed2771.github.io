@@ -3,7 +3,73 @@ layout: default
 title: "Lesson 15: Keeping Track of State & Calibration"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Using state variables and calibration constants to organize mechanism behavior.
 previous: 14.html
 next: 16.html
 ---
+<p>Robots need to remember what they are doing. A mechanism might be idle,
+moving up, holding position, intaking, shooting, or waiting for a sensor. That
+kind of memory is called state.</p>
+
+<h2>What Is State?</h2>
+
+<p>A state is a named condition that changes how your code behaves. Without
+state, your code often becomes a pile of button checks that fight each other.
+With state, your robot can make decisions based on both driver input and what
+it was already doing.</p>
+
+{% highlight java %}
+enum ArmState {
+    IDLE,
+    MOVING_UP,
+    MOVING_DOWN,
+    HOLDING
+}
+
+ArmState armState = ArmState.IDLE;
+{% endhighlight %}
+
+<h2>Using State in Periodic Code</h2>
+
+<p>Once you have a state variable, use it to decide what should happen each
+cycle.</p>
+
+{% highlight java %}
+public void teleopPeriodic() {
+    if (joystick.getRawButton(1)) {
+        armState = ArmState.MOVING_UP;
+    } else if (joystick.getRawButton(2)) {
+        armState = ArmState.MOVING_DOWN;
+    }
+
+    if (armState == ArmState.MOVING_UP) {
+        armMotor.set(0.5);
+    } else if (armState == ArmState.MOVING_DOWN) {
+        armMotor.set(-0.5);
+    } else {
+        armMotor.set(0.0);
+    }
+}
+{% endhighlight %}
+
+<h2>Calibration Values</h2>
+
+<p>Calibration values are numbers you tune on the real robot: motor speeds,
+sensor thresholds, hold powers, maximum angles, and timeouts. Keep them in one
+place so you can change behavior without hunting through every class.</p>
+
+{% highlight java %}
+public class Calibration {
+    public static final double ARM_UP_SPEED = 0.55;
+    public static final double ARM_DOWN_SPEED = -0.35;
+    public static final double ARM_HOLD_SPEED = 0.08;
+}
+{% endhighlight %}
+
+<p>State tells the robot what mode it is in. Calibration tells the robot what
+numbers to use while it is in that mode.</p>
+
+<h2>Practice</h2>
+
+<p>Pick a mechanism and write down every state it can be in. Then write one
+calibration value for each movement that mechanism performs.</p>

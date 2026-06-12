@@ -3,7 +3,59 @@ layout: default
 title: "Lesson 18: Intro to Encoders"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Reading encoders and converting counts into useful robot distances.
 previous: 17.html
 next: 19.html
 ---
+<p>Encoders measure rotation. In FRC, they are commonly used to measure how far
+a wheel has turned, how fast a shooter is spinning, or how far an elevator has
+moved.</p>
+
+<h2>How Encoders Work</h2>
+
+<p>An encoder sends pulses as it rotates. The roboRIO counts those pulses. If
+you know how many pulses equal one rotation, and how far the mechanism moves per
+rotation, you can convert encoder counts into useful units.</p>
+
+<h2>Creating an Encoder</h2>
+
+<p>Quadrature encoders usually use two digital input ports.</p>
+
+{% highlight java %}
+Encoder leftEncoder;
+
+public void robotInit() {
+    leftEncoder = new Encoder(0, 1);
+    leftEncoder.reset();
+}
+{% endhighlight %}
+
+<p>The numbers in the constructor are the digital input ports. As always, these
+should eventually live in your <code>Wiring</code> class.</p>
+
+<h2>Reading Counts</h2>
+
+{% highlight java %}
+int counts = leftEncoder.get();
+System.out.println("Left encoder: " + counts);
+{% endhighlight %}
+
+<p>Raw counts are useful for debugging, but they are not very meaningful to a
+driver. You usually want distance or speed.</p>
+
+<h2>Distance Per Pulse</h2>
+
+<p>If your wheel travels 18.85 inches per rotation and your encoder reports 360
+counts per rotation, each count is about 0.052 inches. Once you set distance per
+pulse, the encoder can report distance directly.</p>
+
+{% highlight java %}
+leftEncoder.setDistancePerPulse(18.85 / 360.0);
+double inches = leftEncoder.getDistance();
+{% endhighlight %}
+
+<h2>Practice</h2>
+
+<p>Find the counts per revolution for an encoder on your robot. Then calculate
+the distance per pulse for one drive wheel. Print both raw counts and converted
+distance while slowly pushing the robot forward.</p>

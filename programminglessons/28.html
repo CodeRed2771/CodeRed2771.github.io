@@ -1,9 +1,48 @@
 ---
 layout: default
-title: "Lesson 28: Rahs"
+title: "Lesson 28: RAHS"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: Organizing robot code around Robot, Actions, Hardware, and Sensors.
 previous: 27.html
 next: 29.html
 ---
+<p>RAHS stands for Robot, Actions, Hardware, and Sensors. It is a simple way to
+think about organizing a robot project so students can find where code belongs.</p>
+
+<h2>Robot</h2>
+
+<p>The robot class should coordinate the program. It should create major objects
+and call their update methods. It should not contain every motor command for
+every mechanism.</p>
+
+<h2>Actions</h2>
+
+<p>Actions are things the robot is trying to do: drive straight, intake a game
+piece, aim, climb, or hold an arm position. Actions often combine driver input,
+state, and sensor feedback.</p>
+
+<h2>Hardware</h2>
+
+<p>Hardware classes own motors, solenoids, and sensors for a mechanism. For
+example, a drive train class owns the drive motors and encoders. Other code
+should ask the drive train to do something instead of setting its motors
+directly.</p>
+
+<h2>Sensors</h2>
+
+<p>Sensors turn the physical robot into numbers or booleans. Good sensor code
+uses clear names and conversions so the rest of the robot does not need to know
+raw ports or counts.</p>
+
+<h2>Why This Helps</h2>
+
+<p>When a bug appears, organization narrows the search. If the intake motor is
+backwards, look in hardware or calibration. If the intake never starts, look in
+actions or controls. If the robot reads the wrong switch, look in sensors or
+wiring.</p>
+
+<h2>Practice</h2>
+
+<p>Take one robot mechanism and sort its code into RAHS categories. If one class
+contains everything, sketch how you would split it.</p>

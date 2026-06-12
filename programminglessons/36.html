@@ -3,6 +3,52 @@ layout: default
 title: "Lesson 36: One Well Oiled Machine"
 category: Programming
 tags: []
-summary: lesson not written yet.
+summary: A final wrap-up for building organized, testable robot code.
 previous: 35.html
 ---
+<p>This guide covered a lot: robot projects, motors, joysticks, sensors, drive
+trains, Git, state, feedback, safety checks, organization, and dashboards. The
+goal is not to memorize every line. The goal is to learn how to think like a
+robot programmer.</p>
+
+<h2>Bring the Pieces Together</h2>
+
+<p>A well organized robot project has clear ownership:</p>
+
+<ul>
+  <li>Wiring stores ports.</li>
+  <li>Calibration stores tunable numbers.</li>
+  <li>Mechanism classes own hardware.</li>
+  <li>Controls translate driver input into requests.</li>
+  <li>State machines describe what mechanisms are doing.</li>
+  <li>Sensors provide feedback.</li>
+  <li>Dashboard and LEDs communicate important information.</li>
+</ul>
+
+<h2>Build Small, Test Often</h2>
+
+<p>Do not wait until the whole robot is assembled to test code. Test one motor.
+Then one sensor. Then one mechanism. Then one driver action. Small tests catch
+problems while they are still easy to understand.</p>
+
+<h2>Write for the Next Student</h2>
+
+<p>Robot code is team code. Someone else will read it during a late night, at a
+competition, or next season. Use clear names, keep hardware details organized,
+and remove dead code when it is no longer useful.</p>
+
+<h2>Final Practice</h2>
+
+<p>Design a complete subsystem on paper before writing code. Include:</p>
+
+<ol>
+  <li>What hardware it owns.</li>
+  <li>What sensors it reads.</li>
+  <li>What states it can be in.</li>
+  <li>What calibration values it needs.</li>
+  <li>What dashboard values or LED messages it should report.</li>
+  <li>What safety checks protect the mechanism.</li>
+</ol>
+
+<p>If you can answer those questions, you are ready to help build robot code
+that the whole team can understand and trust.</p>
