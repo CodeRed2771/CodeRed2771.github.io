@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
     <head>
       <title>
         {% if page.title %}
@@ -11,10 +11,10 @@
 
         <meta charset="UTF-8">
         <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-        <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+        <meta name="robots" content="index, follow">
 
         <meta name="author" content="Code Red Robotics">
-        <meta name="description" content="Controls resources for FIRST FRC robotics teams.  ">
+        <meta name="description" content="Controls resources for FIRST FRC robotics teams.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="/assets/stylesheets/guide.css" type="text/css">
@@ -24,48 +24,49 @@
     </head>
     <body>
         <div id="container">
-            <div id="content">
-              {% if page.title %}
-              <h1>{{ page.title }}</h1>
-              {% endif %}
-              {{ content }}
-              {% if page.previous or page.next %}
-                <div class="lessonnav">
-                  {% if page.previous %}
-                    <a href="{{ page.previous }}" style="float: left"><--- Previous Lesson</a>
-                  {% endif %}
-                  {% if page.next %}
-                    <a href="{{ page.next }}" style="float: right">Next Lesson---></a>
-                  {% endif %}
-                </div>
-              {% endif %}
-              {% include footer.html %}
-            </div>
-            <div id="navbar" class ="navbar">
+            <aside id="navbar" class="navbar">
               <div id="navbar_header">
-                <a id="back" href="http://coderedrobotics.com/">http://coderedrobotics.com</a>
-                <center>
-                    <a href="/"><img src="/assets/img/mainlogo.png" alt="Code Red Logo"></a>
-                    <h3>The Complete Guide to the</h3>
-                    <h1>FRC Controls System</h1>
-                    <p></p>
-                </center>
+                <a id="back" href="https://coderedrobotics.com/">Code Red Robotics</a>
+                <a class="brand" href="/">
+                    <img src="/assets/img/mainlogo.png" alt="Code Red Robotics logo">
+                    <span class="brand-kicker">Controls Resources</span>
+                    <span class="brand-title">FRC Controls Guide</span>
+                </a>
               </div>
               <div id="tfheader">
                 <form id="tfnewsearch" method="get" action="/search.html">
-                  <input type="text" class="tftextinput" name="query" placeholder="Search..."><span class="arrow"><input type="submit" value="search" class="tfbutton"></span>
+                  <label class="visually-hidden" for="site-search">Search the guide</label>
+                  <input id="site-search" type="text" class="tftextinput" name="query" placeholder="Search the guide">
+                  <input type="submit" value="Search" class="tfbutton">
                 </form>
                 <div class="tfclear"></div>
               </div>
-            <nav>
-              <ul>
-                <a href="/"><li>Home</li></a>
-                <a href="/programminglessons"><li>Programming Lessons</li></a>
-                <a href="/library"><li>Custom Library</li></a>
-                <a href="/robots"><li>Robot Code</li></a>
-              </ul>
-            </nav>
-          </div>
+              <nav aria-label="Main navigation">
+                <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/programminglessons/">Programming Lessons</a></li>
+                  <li><a href="/robots.html">Robot Code</a></li>
+                  <li><a href="/contact.html">Contact</a></li>
+                </ul>
+              </nav>
+          </aside>
+          <main id="content">
+            {% if page.title and page.hide_title != true %}
+            <h1>{{ page.title }}</h1>
+            {% endif %}
+            {{ content }}
+            {% if page.previous or page.next %}
+              <div class="lessonnav">
+                {% if page.previous %}
+                  <a href="{{ page.previous }}">Previous Lesson</a>
+                {% endif %}
+                {% if page.next %}
+                  <a href="{{ page.next }}">Next Lesson</a>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% include footer.html %}
+          </main>
         </div>
     </body>
 </html>

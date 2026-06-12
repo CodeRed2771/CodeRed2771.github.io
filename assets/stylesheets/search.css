@@ -1,60 +1,65 @@
 
-#tfheader{
-}
-
 #tfnewsearch{
+  display: flex;
+  gap: 8px;
   margin-bottom: 20px;
   width: 100%;
 }
 
 .tftextinput{
-  background: #2E2E2E;
-  padding: 10px 15px;
+  min-width: 0;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
   font-family: Helvetica, Arial, sans-serif;
-  font-size:14px;
-  width: calc(100% - 105px);
+  font-size: 14px;
   color: #FFF;
-  left: 0px;
-  border: 0px;
-  -webkit-transition: background 0.1s linear;
-       -moz-transition: background 0.1s linear;
-        -ms-transition: background 0.1s linear;
-         -o-transition: background 0.1s linear;
-            transition: background 0.1s linear;
+  transition: background 0.1s linear, border-color 0.1s linear;
 }
 
 .tftextinput:hover {
-  background: #3E3E3E;
-
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .tftextinput:focus {
-  background: #4A4A4A;
-  -webkit-transition: background 0.1s linear;
-       -moz-transition: background 0.1s linear;
-        -ms-transition: background 0.1s linear;
-         -o-transition: background 0.1s linear;
-            transition: background 0.1s linear;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.42);
+  outline: none;
 }
 
 .tfbutton {
   margin: 0;
-  padding: 10px 15px;
+  padding: 0 14px;
+  border-radius: 8px;
   font-family: Helvetica, Arial, sans-serif;
-  font-size:14px;
+  font-size: 14px;
+  font-weight: 700;
   outline: none;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   color: #ffffff;
-  border: 0px;
-  width: 75px;
-  background: #880000;
+  border: 0;
+  background: #b5121b;
 }
 
 .tfbutton:hover {
   text-decoration: none;
-  background: #FF0000;
+  background: #dc202b;
+}
+
+#content .tftextinput {
+  border-color: #cfd6e0;
+  background: #fff;
+  color: #26313d;
+}
+
+#content .tftextinput:hover,
+#content .tftextinput:focus {
+  border-color: #9eaabb;
+  background: #f8fafc;
 }
 
 /* Fixes submit button height problem in Firefox */
@@ -98,37 +103,28 @@ li.result p {
 }
 
 li.result div {
-  background: #555555;
-  padding: 15px;
-  color:#000000;
-  -webkit-transition:color 0.3s;
-  -moz-transition:color 0.3s;
-  -o-transition:color 0.3s;
-  transition:color 0.3s
+  padding: 18px;
+  border: 1px solid #dfe4eb;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #26313d;
+  transition: color 0.3s;
 }
 
 li.result h3 {
-  font-size: 30px;
-  font-weight: 700;
+  margin: 0 0 8px;
+  font-size: 1.4rem;
   text-align: left;
-  color: #ffffff;
-  font-weight: 700;
+  color: #a50f17;
   text-decoration: underline;
-  -webkit-transition:color 0.3s;
-  -moz-transition:color 0.3s;
-  -o-transition:color 0.3s;
-  transition:color 0.3s
+  transition: color 0.3s;
 }
 
 li.result h3:hover {
-  color: #ff6100;
-  -webkit-transition:color 0.3s;
-  -moz-transition:color 0.3s;
-  -o-transition:color 0.3s;
-  transition:color 0.3s
+  color: #e02a35;
 }
 
 .result p {
   margin: 0;
-  color: #fff;
+  color: #4b5a69;
 }
