@@ -2,7 +2,7 @@
 title: Contact
 layout: default
 searchable: no
-google_form_url:
+google_form_url: https://forms.gle/amDCSUDs1tq4zaw59
 google_form_embed_url:
 ---
 <section class="contact-hero">
@@ -33,26 +33,4 @@ google_form_embed_url:
   </article>
 </section>
 
-<section id="google-form" class="contact-form-section">
-  <h2>Google Contact Form</h2>
-  {% if page.google_form_embed_url %}
-  <div class="google-form-frame">
-    <iframe src="{{ page.google_form_embed_url }}" title="Code Red controls resources contact form">Loading...</iframe>
-  </div>
-  {% if page.google_form_url %}
-  <p><a href="{{ page.google_form_url }}">Open the form in a new tab</a></p>
-  {% endif %}
-  {% elsif page.google_form_url %}
-  <p>Use the Google Form to send a question, report a broken link, or suggest a
-  new controls topic.</p>
-  <a class="button primary" href="{{ page.google_form_url }}">Open Google Form</a>
-  {% else %}
-  <div class="google-form-placeholder">
-    <h3>Google Form URL Needed</h3>
-    <p>Create a Google Form, choose <b>Send</b>, copy the share link, and paste it
-    into this page's <code>google_form_url</code> field. To embed it directly,
-    copy the embed URL and paste it into <code>google_form_embed_url</code>.</p>
-    <a class="button primary" href="https://forms.new">Create a Google Form</a>
-  </div>
-  {% endif %}
-</section>
+
